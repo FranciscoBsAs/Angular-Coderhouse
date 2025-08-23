@@ -14,3 +14,18 @@ export interface courseInterface {
     credits : number,
     id : number | string
 }
+
+export interface pipeFullNameInterface {
+  name : string,
+  surname : string
+}
+
+
+
+export interface userInterface {
+  userName : string,
+  email : string,
+  password : string,
+  role : string,
+  id : string | number
+}
