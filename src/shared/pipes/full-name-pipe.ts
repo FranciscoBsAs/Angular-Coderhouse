@@ -1,19 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { pipeFullNameInterface } from '../sharedContent/entities';
 
-interface pipeFullNameInterface {
-  name : string,
-  surname : string
-}
 
 @Pipe({
   name: 'fullNamePipe'
 })
+
 export class FullNamePipe implements PipeTransform {
 
   transform( value : pipeFullNameInterface ) : string {
 
     return(
-      `${ value.name } ${ value.surname } `
+      `${ value.name } ${ value.surname }`
     )
   }
 
