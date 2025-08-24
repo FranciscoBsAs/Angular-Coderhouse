@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
 import { RoutingPaths } from '../shared/urlRoutesEnum';
 import { StudentsFullComponent } from './features/students-full-component/students-full-component';
+import { LoginFormComponent } from './core/loginForm/login-form-component';
+import { RoleGuard } from './core/guards/role-guard';
 
 
 export const routes : Routes = [
 
     {
         path: RoutingPaths.HOME,
-        component: StudentsFullComponent,
+        component: LoginFormComponent,
         /*
 
         */
@@ -28,6 +30,7 @@ export const routes : Routes = [
 
     {
         path: RoutingPaths.REGISTRATIONS,
+        canActivate: [ RoleGuard ],
         loadComponent: () => import( './features/registrations-full-component/registrations-full-component' ).then( (module) => module.RegistrationsFullComponent )
     },
     {
@@ -37,7 +40,7 @@ export const routes : Routes = [
     },
     {
         path: RoutingPaths.EDIT_SINGULAR_STUDENT,
-        //loadComponent: () => import( './edit-form/edit-student-form' ).then( (module) => module.EditStudentForm )
+        canActivate: [RoleGuard],
         loadComponent: () => import( './features/students-full-component/edit-student-form/edit-student-form' ).then( (module) => module.EditStudentForm )
     },
 
@@ -47,6 +50,7 @@ export const routes : Routes = [
     },
     {
         path: RoutingPaths.EDIT_SINGULAR_COURSE,
+        canActivate: [ RoleGuard ],
         loadComponent: () => import( './features/courses-full-component/edit-courses-form/edit-courses-form' ).then( (module) => module.EditCoursesForm )
     },
     {
