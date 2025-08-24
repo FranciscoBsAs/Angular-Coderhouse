@@ -44,12 +44,20 @@
                 View
             </button>
 
-            <button (click)="editCourseFromChild( elementOfArray )" mat-button color="primary" >
+            <button 
+                *ngIf="isAdminProp"
+                (click)="editCourseFromChild( elementOfArray )"
+                mat-button color="primary" 
+            >
                 Edit
             </button>
 
             
-            <button (click)="deleteCourseFromChild( elementOfArray )" mat-button color="warn" >
+            <button 
+                *ngIf="isAdminProp"
+                (click)="deleteCourseFromChild( elementOfArray )" 
+                mat-button color="warn" 
+            >
                 Delete
             </button>
 

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { courseInterface } from '../../../../shared/sharedContent/entities';
 //import { CoursesFullComponent } from '../courses-full-component';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
+import { AuthService } from '../../../core/auth/auth-service';
 
 @Component({
   selector: 'courses-table',
@@ -13,18 +14,24 @@ import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-commo
 })
 
 
-export class CoursesTable {
+export class CoursesTable implements OnInit {
 
   @Input() coursesInTable : courseInterface[] = []
 
   @Output() deleteCourseEventEmitter : EventEmitter<courseInterface> = new EventEmitter<courseInterface>()
   
-  constructor( private theRouter : Router ) {}
-
-
+  
   columnTitles : string[] = [ 'Name', 'Code', 'Credits', 'Actions' ]
 
+  isAdminProp! : boolean
 
+  
+  constructor( private theRouter : Router, private authService : AuthService ) {}
+
+
+  ngOnInit(): void {
+      this.isAdminProp = this.authService.isAdmin()
+  }
 
   // nuevo planteo routing edit
 
