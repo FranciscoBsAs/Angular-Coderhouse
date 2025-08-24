@@ -47,7 +47,6 @@ export class StudentsAPIService {
 
     return this.myHTTP.post<studentInterface>( `${this.baseURL}/${RoutingDB.STUDENTS}`, newStudent )
 
-  }
-  
+  }  
 
 }
