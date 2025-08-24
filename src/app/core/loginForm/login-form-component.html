@@ -1,0 +1,29 @@
+<br><br>
+<form 
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+>
+    <label for="email" > Email: </label>
+
+    <input
+        type="text"
+        id="email"
+        formControlName="email"
+        required
+    >
+
+
+    <label for="password"> Password: </label>
+
+    <input
+        type="password"
+        id="password"
+        formControlName="password"
+    >
+
+    
+    <button type="submit">Login</button>
+
+</form>
+
+{{ this.certainUser | json }}
