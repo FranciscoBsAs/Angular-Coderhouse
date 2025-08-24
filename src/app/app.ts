@@ -4,6 +4,7 @@ import { Toolbar } from './toolbar/toolbar';
 import { Navbar } from './navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './core/auth/auth-service';
 
 
 @Component({
@@ -12,55 +13,28 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App   {
+export class App implements OnInit {
 
   protected title = 'angular-coderhouse-project';
 
-  //studentsArray : studentInterface[] = []
+  //currentSection : string = 'students-table-section'
 
-  currentSection : string = 'students-table-section'
+  isUserLoggedProp! : boolean
 
-  constructor( private myHttp : HttpClient ) {}
-
-  /*
-  ngOnInit() : void {
-      
-    this.myHttp.get<studentInterface[]>( 'AsyncMock/Students.json' ).subscribe( ( theData ) => {
-      console.log(theData) ;
-
-      this.studentsArray = theData
-
-    }
-    )
-
-  }
+  constructor( private myHttp : HttpClient, private authService : AuthService ) {}
 
 
-  handleAddNewStudent( stu : studentInterface ) {
-    
-    this.studentsArray = [ ...this.studentsArray, stu ]
-    console.log('Adding new student', stu)
-  }
+  ngOnInit(): void {
 
+    this.authService.loggedUserEvent$.subscribe( ( userAlreadyLogged ) => {
 
-  handleDeleteStudent ( id : number ) {
+      this.isUserLoggedProp = ( userAlreadyLogged !== null )  // boolean !==  
 
-    const updateStudents = this.studentsArray.filter( (st) =>  st.dni !== id  ) ;
+      //console.log( "el usuario ya esta loggeado: ", this.isUserLoggedProp)
+    } )
 
-    this.studentsArray = [ ...updateStudents ]
 
   }
   
 
-  handleEditStudent ( editedStudent : studentInterface ) {
-
-    const index = this.studentsArray.findIndex( ( t ) => t.dni === editedStudent.dni )
-
-    if ( index !== -1 ) {
-      this.studentsArray[index] = editedStudent
-    }
-    
-  }
-
-  */
 }

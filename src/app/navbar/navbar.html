@@ -23,7 +23,7 @@
 
             </li>
 
-            <li class="nav-link custom-nav-item" >
+            <li class="nav-link custom-nav-item" *ngIf="isAdminProp" >
                 <mat-card-content>
                     <a [routerLink]="routingPathsInNavBar.REGISTRATIONS" > <!-- se usa property binding con [routerLink=""] -->
                         Inscripciones
