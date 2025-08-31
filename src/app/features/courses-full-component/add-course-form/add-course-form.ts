@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { courseInterface } from '../../../../shared/sharedContent/entities';
-import { CoursesApiService } from '../courses-api-service';
+import { CoursesAPIService } from '../courses-api-service';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
 
 @Component({
@@ -18,7 +18,7 @@ export class AddCourseForm implements OnInit {
 
   constructor(
     private myFormBuilder : FormBuilder,
-    private coursesAPI : CoursesApiService
+    private coursesAPI : CoursesAPIService
   ){}
 
 

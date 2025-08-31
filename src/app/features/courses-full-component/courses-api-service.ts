@@ -8,7 +8,7 @@ import { RoutingDB } from '../../../enumRoutesDB';
   providedIn: 'root'
 })
 
-export class CoursesApiService {
+export class CoursesAPIService {
 
   private baseURL : string = RoutingDB.EDPOINT_APIio_DB
 
@@ -35,7 +35,7 @@ export class CoursesApiService {
 
   deleteCourseInDB ( someCourse : courseInterface ) : Observable<void> {
 
-    return this.myHttp.delete<void>( `${this.baseURL}/${RoutingDB.COURSES}/${someCourse.id} ` ).pipe( delay( 3000 ) )
+    return this.myHttp.delete<void>( `${this.baseURL}/${RoutingDB.COURSES}/${someCourse.id}` ).pipe(delay(2000))
 
   }
 

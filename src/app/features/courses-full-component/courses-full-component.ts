@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 //import { StudentsTable } from '../students-full-component/students-table/students-table';
 import { Router, RouterModule } from '@angular/router';
-import { CoursesApiService } from './courses-api-service';
+import { CoursesAPIService } from './courses-api-service';
 import { courseInterface } from '../../../shared/sharedContent/entities';
 import { CoursesTable } from './courses-table/courses-table';
 import { switchMap } from 'rxjs';
@@ -18,7 +18,7 @@ export class CoursesFullComponent implements OnInit {
 
   constructor(
 
-    private courseAPI : CoursesApiService,
+    private courseAPI : CoursesAPIService,
     private theRouter : Router
 
   ){}

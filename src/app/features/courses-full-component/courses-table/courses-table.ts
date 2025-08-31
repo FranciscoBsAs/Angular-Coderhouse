@@ -5,10 +5,11 @@ import { courseInterface } from '../../../../shared/sharedContent/entities';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
 import { AuthService } from '../../../core/auth/auth-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'courses-table',
-  imports: [ MyMatCommonRouterModule ],
+  imports: [ MyMatCommonRouterModule, CommonModule ],
   templateUrl: './courses-table.html',
   styleUrl: './courses-table.css'
 })
