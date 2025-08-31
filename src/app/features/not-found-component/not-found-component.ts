@@ -19,7 +19,7 @@ export class NotFoundComponent implements OnInit {
 
       this.theRouter.navigate([ RoutingPaths.HOME ])
 
-    }, 10000 )
+    }, 1500 )
 
   }
 
