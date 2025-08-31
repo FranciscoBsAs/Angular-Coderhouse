@@ -60,10 +60,16 @@ export const routes : Routes = [
     },
 
     
+        {
+        path: RoutingPaths.LOG_OUT,
+        loadComponent: () => import( './core/log-out-component/log-out-component' ).then( m => m.LogOutComponent )
+    },
+
 
     {
         path: "**",
         //component: NotFoundComponent
         loadComponent: () => import( './features/not-found-component/not-found-component' ).then( ( module ) => module.NotFoundComponent )
-    }
+    },
+
 ];

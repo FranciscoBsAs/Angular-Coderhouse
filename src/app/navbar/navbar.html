@@ -31,6 +31,22 @@
                 </mat-card-content>
             </li>
 
+
+
+
+            <li 
+                class="nav-link custom-nav-item"
+                *ngIf="( isLoggedIn$ | async)"
+            >
+                <mat-card-content>
+                    <a [routerLink]="routingPathsInNavBar.LOG_OUT" >  <!--  se usa property binding -->
+                        Cerrrar Sesión
+                    </a>
+                </mat-card-content>
+
+            </li>
+
+
         </mat-card>
 
     </ul>
