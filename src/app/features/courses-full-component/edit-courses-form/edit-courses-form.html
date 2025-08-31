@@ -19,6 +19,30 @@
                 placeholder="ingrese el nombre editado"
             >
 
+            <div 
+                *ngIf="(
+                    editCourseForm.get('name')?.errors?.[ 'onlyLetters' ]
+                    &&
+                    editCourseForm.get('name')?.touched
+                )"
+                class="err-class" >
+                <h5>
+                    Nombre de curso unicamente con letras
+                </h5>
+            </div>
+
+            <div 
+                *ngIf="(
+                    editCourseForm.get('name')?.errors?.[ 'hasEmoticon' ]
+                    &&
+                    editCourseForm.get('name')?.touched
+                )"
+                class="err-class" >
+                <h5>
+                    No se permite ingresar emoticones
+                </h5>
+            </div>
+
 
         </div>
 
@@ -32,6 +56,18 @@
                 placeholder="ingrese el código editado"
             >
 
+            <div 
+                *ngIf="(
+                    editCourseForm.get('code')?.errors?.[ 'hasEmoticon' ]
+                    &&
+                    editCourseForm.get('code')?.touched
+                )"
+                class="err-class" >
+                <h5>
+                    No se permite ingresar emoticones
+                </h5>
+            </div>
+
         </div>
 
 
@@ -44,6 +80,16 @@
                 formControlName="credits"
                 placeholder="ingrese el credito editado"
             >
+            <div
+                *ngIf="(
+                    editCourseForm.get('credits')?.errors?.['pattern']
+                    &&
+                    editCourseForm.get('credits')?.touched
+                )"
+                class="err-class"
+            >
+                <p> Créditos unicamente con valores numericos Reales, decimales con coma, entre (–12,34) </p>
+            </div>
         </div>
 
 

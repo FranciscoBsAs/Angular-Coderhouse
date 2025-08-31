@@ -5,10 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Navigation, Router, RouterModule } from '@angular/router';
-import { CoursesApiService } from '../courses-api-service';
+import { CoursesAPIService } from '../courses-api-service';
 import { courseInterface } from '../../../../shared/sharedContent/entities';
 import { MatSnackBar, MatSnackBarConfig, TextOnlySnackBar } from '@angular/material/snack-bar'
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
+
+import * as myCustomValidators from '../../../../shared/validatorFunctions/ValidatorFunctions'
 
 
 @Component({
@@ -39,7 +41,7 @@ export class EditCoursesForm implements OnInit {
   constructor( 
     private myFormBuilder : FormBuilder,
     private theRouter : Router,
-    private coursesAPI : CoursesApiService
+    private coursesAPI : CoursesAPIService
   ){
     const theCurrentNavigation : Navigation | null = this.theRouter.getCurrentNavigation()
 
@@ -53,9 +55,9 @@ export class EditCoursesForm implements OnInit {
 
       this.editCourseForm = this.myFormBuilder.group(
         {
-          name: [''],
-          code: [''],
-          credits: [''],
+          name: ['', [myCustomValidators.onlyLettersValidator, myCustomValidators.notEmoticonValidator] ],
+          code: ['' , [ myCustomValidators.notEmoticonValidator ] ],
+          credits: ['', [ Validators.pattern(/^-?\d+(?:,\d+)?$/) ]],
           id: ['']
         }
       )
