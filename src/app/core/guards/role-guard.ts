@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../auth/auth-service';
 import { RoutingPaths } from '../../../shared/urlRoutesEnum';
 
-export const roleGuard: CanActivateFn = (route, state) => {
+export const roleGuard : CanActivateFn = (route, state) : boolean => {
 
 
   const theRouter : Router = inject( Router )
@@ -20,13 +20,11 @@ export const roleGuard: CanActivateFn = (route, state) => {
   else{
 
     setTimeout( () => {
-      theRouter.navigate( [ '**' ] )
+      theRouter.navigate( [ RoutingPaths.NOT_FOUND_ROUTE ] )
     }, 1500 )
 
     return false
 
   }
-
-  
 
 };

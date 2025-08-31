@@ -12,6 +12,11 @@ export enum RoutingPaths {
 
     EDIT_SINGULAR_COURSE = 'editar-curso',
     VIEW_SINGULAR_COURSE = 'ver-curso',
-    ADD_NEW_COURSE = 'añadir-curso'
+    ADD_NEW_COURSE = 'añadir-curso',
+
+    NOT_FOUND_ROUTE = '**',
+
+    LOG_OUT = 'logout'
+
    
 }

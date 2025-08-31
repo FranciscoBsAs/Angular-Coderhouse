@@ -74,4 +74,13 @@ export class AuthService {
   }
   
 
+
+
+  // NUEVO PARA LOGOUT
+
+  public logOut(): void {
+    this.loggedUserSubject.next(null);
+  }
+
+
 }
