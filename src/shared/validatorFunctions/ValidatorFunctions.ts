@@ -15,7 +15,7 @@ export function onlyLettersValidator ( control : AbstractControl ) : ValidationE
   const word : string = control.value
   if( !word ) { return null }
 
-  const lettersOnlyRegex = /^[a-zA-Z\s-]+$/ ;
+  const lettersOnlyRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s-]+$/ ;
 
   return (
     lettersOnlyRegex.test( word )
@@ -41,6 +41,25 @@ export function firstLetterUpperCaseValidator ( control : AbstractControl ) : Va
     firstLetter === firstLetter.toUpperCase()
                   ? null
                   : { firstLetterIsNotUpperCase : true }
+
+  )
+
+}
+
+
+export function notEmoticonValidator ( control : AbstractControl ) : ValidationErrors | null {
+
+  const value : string = control.value
+
+  if( !value ) return null
+
+  const emoticonRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
+
+  return(
+
+    emoticonRegex.test( value ) 
+      ? { hasEmoticon: true } 
+      : null
 
   )
 
