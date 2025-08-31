@@ -3,13 +3,14 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { studentInterface } from '../../../../shared/sharedContent/entities';
 import { MatSnackBar, MatSnackBarConfig, TextOnlySnackBar } from '@angular/material/snack-bar'
-import { averageSup0, firstLetterUpperCaseValidator, onlyLettersValidator } from '../../../../shared/validatorFunctions/ValidatorFunctions';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Navigation, Router, RouterModule } from '@angular/router';
 import { StudentsAPIService } from '../students-api-service';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
+
+import * as myCustomValidators from '../../../../shared/validatorFunctions/ValidatorFunctions'
 
 
 @Component({
@@ -46,10 +47,10 @@ export class EditStudentForm implements OnInit {
         {
           dni: [''],
           id: [''],
-          name: ['', [Validators.required, onlyLettersValidator, firstLetterUpperCaseValidator ] ],
-          surname: ['', [Validators.required, onlyLettersValidator, firstLetterUpperCaseValidator ] ],
-          age: ['', [Validators.required,] ],
-          average: ['', [Validators.required, averageSup0, Validators.max(10)]],
+          name: ['', [Validators.required, myCustomValidators.onlyLettersValidator,  myCustomValidators.firstLetterUpperCaseValidator ] ],
+          surname: ['', [Validators.required, myCustomValidators.onlyLettersValidator, myCustomValidators.firstLetterUpperCaseValidator ] ],
+          age: ['', [Validators.required, myCustomValidators.notEmoticonValidator ] ],
+          average: ['', [Validators.required, myCustomValidators.averageSup0, Validators.max(10)]],
         }
       )
 

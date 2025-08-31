@@ -2,7 +2,6 @@
 
     <h2> Editar Estudiante </h2>
 
-
     <br> <br>
 
     <form [formGroup]="editStudentForm" (ngSubmit)="onSubmit()" >
@@ -16,7 +15,7 @@
                 formControlName="dni"
                 [readonly]="true"
                 class="readonly-dni"
-         >
+        >
         </div>
 
         
@@ -147,6 +146,19 @@
                     La edad es requerido
                 </h5>
             </div>
+
+
+            <div 
+                *ngIf="(
+                    editStudentForm.get('age')?.errors?.[ 'hasEmoticon' ]
+                    &&
+                    editStudentForm.get('age')?.touched
+                )"
+                class="err-class" >
+                <h5>
+                    No se permite ingresar emoticones
+                </h5>
+            </div>
             
         </div>
 
@@ -191,14 +203,7 @@
         </div>
 
 
-
-
-
-
-
-
-
-<div class="formField-group" >
+        <div class="formField-group" >
 
             <label for="id">
                 ID: 
@@ -211,17 +216,8 @@
                 placeholder="ingrese el id editado"
                 [readOnly]="true"
             >
-            
-</div>
-
-
-
-
-
-
-
-
-
+                    
+        </div>
 
 
         <button type="submit" [disabled]="editStudentForm.invalid" class="submit-btn">
