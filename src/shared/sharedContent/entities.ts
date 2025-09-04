@@ -4,6 +4,7 @@ export interface studentInterface {
     dni : number,
     age : number,
     average : number,
+    courses : string[] ,
     id: number | string
 }
 
@@ -12,8 +13,17 @@ export interface courseInterface {
     name : string,
     code : string,
     credits : number,
+    fullNamesOfStudentsCoursing : string
     id : number | string
 }
+
+/*
+export interface singleCourseDetailsI extends courseInterface {
+
+  fullNamesOfStudentsCoursing : string
+
+}
+*/
 
 export interface pipeFullNameInterface {
   name : string,
@@ -28,4 +38,17 @@ export interface userInterface {
   password : string,
   role : string,
   id : string | number
+}
+
+
+export interface email_password_Interface {
+  email : string,
+  password : string
+}
+
+
+export type routeMapingType = {
+
+  [ key : string ] : string
+
 }
