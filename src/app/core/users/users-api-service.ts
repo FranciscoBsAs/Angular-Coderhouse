@@ -20,4 +20,11 @@ export class UsersAPIService {
 
   }
 
+
+  deleteUserInDB ( someUser : userInterface ) : Observable<void> {
+
+    return this.myHTTP.delete<void>( `${this.baseURL}/${RoutingDB.USERS}/${someUser.id}` )
+
+  }
+
 }

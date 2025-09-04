@@ -16,14 +16,15 @@ import { switchMap } from 'rxjs';
 
 export class CoursesFullComponent implements OnInit {
 
+  coursesArray! : courseInterface[]
+
+
   constructor(
 
     private courseAPI : CoursesAPIService,
     private theRouter : Router
 
   ){}
-
-  coursesArray! : courseInterface[]
 
   
   ngOnInit() : void {
@@ -41,7 +42,7 @@ export class CoursesFullComponent implements OnInit {
 
   handleDeleteCourse ( courseToDelete : courseInterface ) : void {
 
-    console.log( "Eliminando curso", courseToDelete ) ; console.table( courseToDelete )
+    console.log( "Eliminando curso", courseToDelete )
 
     this.courseAPI.deleteCourseInDB( courseToDelete ).pipe(
 

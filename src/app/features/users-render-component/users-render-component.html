@@ -1,0 +1,17 @@
+<div *ngIf=" usersArray ; else loadingTemplate " >
+
+    <users-table
+        [usersInTable]="usersArray"
+
+        (deleteUserEventEmitter)="handleDeleteUser( $event )"
+    />
+
+</div>
+
+<ng-template #loadingTemplate >
+
+    <p>
+        Loading...
+    </p>
+
+</ng-template>
