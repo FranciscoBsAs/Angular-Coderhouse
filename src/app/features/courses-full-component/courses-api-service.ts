@@ -17,7 +17,7 @@ export class CoursesAPIService {
 
   public getCoursesThroughMockIO () : Observable< courseInterface[] > {
 
-    return this.myHttp.get< courseInterface[] >( `${this.baseURL}/${RoutingDB.COURSES}` ).pipe( delay(4000) )
+    return this.myHttp.get< courseInterface[] >( `${this.baseURL}/${RoutingDB.COURSES}` )
 
   }
 
@@ -35,7 +35,7 @@ export class CoursesAPIService {
 
   deleteCourseInDB ( someCourse : courseInterface ) : Observable<void> {
 
-    return this.myHttp.delete<void>( `${this.baseURL}/${RoutingDB.COURSES}/${someCourse.id}` ).pipe(delay(2000))
+    return this.myHttp.delete<void>( `${this.baseURL}/${RoutingDB.COURSES}/${someCourse.id}` )
 
   }
 
