@@ -4,12 +4,14 @@
     <p BigTitleDirective >
         {{titleApp}}
     </p>
-    
-    <p *ngIf="userNameTitle !== null" >
-        User: {{ userNameTitle }}
-    </p>
+    <div class="toolbar-row" >
+        <p *ngIf="userNameTitle !== null" class="toolbar-user" >
+            User: {{ userNameTitle }}
+        </p>
 
-    <p> {{titleRouting  }} </p>
-
+        <p class="toolbar-routing" >
+            {{titleRouting  }} 
+        </p>
+    </div>
 </div>
 
