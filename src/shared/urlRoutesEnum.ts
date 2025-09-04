@@ -15,9 +15,11 @@ export enum RoutingPaths {
     VIEW_SINGULAR_COURSE = 'ver-curso',
     ADD_NEW_COURSE = 'añadir-curso',
 
+    VIEW_SINGULAR_USER = 'ver-usuario',
+    EDIT_SINGULAR_USER = 'editar-usuario',
+
+    LOG_OUT = 'logout',
+    
     NOT_FOUND_ROUTE = '**',
-
-    LOG_OUT = 'logout'
-
    
 }
