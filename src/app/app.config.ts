@@ -10,6 +10,7 @@ import { usersNgRxReducer } from './core/users/usersNgRx/users.reducer';
 import { AuthEffects } from './core/authNgRx/auth.effects';
 import { UsersNgRxEffects } from './core/users/usersNgRx/users.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { myMetaReducers } from './core/hydrationLS/meta-reducer-hydration';
 
 export const appConfig : ApplicationConfig = {
   providers: [
@@ -18,11 +19,18 @@ export const appConfig : ApplicationConfig = {
     provideRouter(routes),
     //new one, HTTP
     provideHttpClient(),
-    provideStore({
+    provideStore(
+      {
         auth: authReducer,
-        usersNgRx: usersNgRxReducer
-    }),
-    provideEffects([AuthEffects, UsersNgRxEffects]),
+      }
+      //{
+        //metaReducers: myMetaReducers
+      //}
+    ),
+    provideEffects([AuthEffects,
+       //UsersNgRxEffects
+      ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-]
+  ]
+  
 };

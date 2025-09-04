@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Toolbar } from './toolbar/toolbar';
 import { Navbar } from './navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './core/auth/auth-service';
+import { Store } from '@ngrx/store';
+import { selectIsLoggedIn } from './core/authNgRx/auth.selector';
 
 
 @Component({
@@ -19,21 +21,34 @@ export class App implements OnInit {
 
   //currentSection : string = 'students-table-section'
 
-  isUserLoggedProp! : boolean
+  isUserLoggedProp : boolean = false
 
-  constructor( private myHttp : HttpClient, private authService : AuthService ) {}
+  constructor( 
+    private myHttp : HttpClient,
+
+    public cdRef : ChangeDetectorRef,
+
+    private theAuthStore : Store
+   
+  ) {}
 
 
   ngOnInit(): void {
 
-    this.authService.loggedUserEvent$.subscribe( ( userAlreadyLogged ) => {
+    this.theAuthStore.select( selectIsLoggedIn ).subscribe( ( loggedInSuccess ) => {
 
-      this.isUserLoggedProp = ( userAlreadyLogged !== null )  // boolean !==  
+      this.isUserLoggedProp = Boolean(loggedInSuccess)
 
-      //console.log( "el usuario ya esta loggeado: ", this.isUserLoggedProp)
+      //this.cdRef.detectChanges()
+
     } )
 
 
+  }
+
+  public getNavBarTitle () : string {
+
+    return  'Titulo tal FALTA LOGICA'
   }
   
 
