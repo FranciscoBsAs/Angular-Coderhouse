@@ -30,7 +30,6 @@ export const routes : Routes = [
 
     {
         path: RoutingPaths.REGISTRATIONS,
-        canActivate: [ roleGuard ],
         loadComponent: () => import( './features/registrations-full-component/registrations-full-component' ).then( (module) => module.RegistrationsFullComponent )
     },
     {
@@ -60,10 +59,27 @@ export const routes : Routes = [
     },
 
     
-        {
+    {
         path: RoutingPaths.LOG_OUT,
         loadComponent: () => import( './core/log-out-component/log-out-component' ).then( m => m.LogOutComponent )
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     {

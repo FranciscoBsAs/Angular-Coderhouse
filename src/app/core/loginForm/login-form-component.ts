@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { userInterface } from '../../../shared/sharedContent/entities';
 import { AuthService } from '../auth/auth-service';
 import { Router } from '@angular/router';
-import { RoutingPaths } from '../../../shared/urlRoutesEnum';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { authStateInterface } from '../authNgRx/auth.model';
 import { Store } from '@ngrx/store';
 import { LoadUsers } from '../users/usersNgRx/users.actions';
 import { Login } from '../authNgRx/auth.actions';
+import { selectEror, selectIsLoading } from '../authNgRx/auth.selector';
 
 @Component({
   selector: 'app-login-form-component',
@@ -21,66 +21,60 @@ export class LoginFormComponent implements OnInit {
 
   loginForm! : FormGroup
 
-  certainUser : userInterface | null = null
-
-  // Nuevo con NgRx = New NgRx
-
-  public loggedUser$! : Observable< string | null >   // New NgRx
-
-  public usersFromNgRx$! : Observable<userInterface>   // New NgRx
+  private theAuthStore : Store< { auth : authStateInterface } > = inject( Store )
   
+  isLoading$ : Observable<boolean> = this.theAuthStore.select( selectIsLoading )
+  
+  error$ : Observable<string | null> = this.theAuthStore.select( selectEror )
+
+  
+  loggedUser$ : Observable< string | null > | null  = null  // si te sirve para debug
 
 
-  constructor(
+  constructor( 
     private myFormBuilder : FormBuilder,
-    private authAPI : AuthService,
     private theRouter : Router,
 
-
-    private theAuthStore : Store< { auth: authStateInterface } >,   // New NgRx
-
-    private usersNgRxStorage : Store< { usersNgRx : userInterface } >   // New NgRx
-
-  ){}
+    public authServices : AuthService,
+  ) {}
 
 
   ngOnInit(): void {
 
-    this.authAPI.loadUsersFromAPI()
-      
+    this.authServices.loadUsersFromAPI()
+    
     this.loginForm = this.myFormBuilder.group(
       {
-        email: [ '', [ Validators.required, Validators.minLength(3) ] ],
+        email: [ '', [ Validators.required, Validators.minLength(3)] ],
         password: [ '', [ Validators.required, Validators.minLength(3) ] ]
       }
     )
 
+    // opcional para debug: mostrar el email del auth state
+    this.loggedUser$ = this.theAuthStore.select( (state) => state.auth.email )    // NUEVO,  Seleccionar el email usuario logueado desde el store
+  }
 
-    /*  New NgRx
-    this.authAPI.loggedUserEvent$.subscribe( ( us ) => {
 
-      this.certainUser = us
+  onSubmit () {
+
+    if( this.loginForm.valid ) {
+
+      const { email, password } = this.loginForm.value
       
-      console.log( "Loggin user: ", us )
-
-    } )
-    */
-
-    this.loggedUser$ = this.theAuthStore.select( ( state ) => state.auth.email )    // New NgRx
-
-    this.loggedUser$.subscribe( ( user ) => {     // New NgRx
-
-      if( user ){ console.log( 'User obtenido: ', user ) }    // New NgRx
-
-    } )
-
-    
-    this.usersFromNgRx$ = this.usersNgRxStorage.select( state => state.usersNgRx )    // New NgRx
-
+      this.theAuthStore.dispatch( Login(
+        {
+          email: email ,
+          password: password 
+        } 
+      ) )
+      
+    }
+    else{ console.error( 'Login form is invalidad' ) }
 
   }
 
 
+  
   getUser () : void {
 
     this.loggedUser$ = this.theAuthStore.select( state => state.auth.email )
@@ -88,46 +82,13 @@ export class LoginFormComponent implements OnInit {
   }
 
 
-  loadUsersMethod () {
-    this.theAuthStore.dispatch( LoadUsers() )
-  }
 
 
-  onSubmit () : void {
+  getTitle () : string {
+    
+    // si estamos en tan pagina ,el titulo... switch,
 
-    if( this.loginForm.valid ) {
-
-      const { email, password } = this.loginForm.value
-
-      this.theAuthStore.dispatch( Login(
-        {
-          email: email,
-          password: password
-        }
-      ) )
-
-      this.theRouter.navigate( [ RoutingPaths.STUDENTS ] )
-
-      //this.authAPI.logIn( email, password )   // New NgRx
-
-      /*
-      if( this.authAPI.logIn( email, password ) ) {
-        
-        console.log( 'Loggin successful' )
-
-        this.theRouter.navigate( [ RoutingPaths.STUDENTS ] )  //  de tener exito al loggearse Redirigir a students
-
-      }
-      else{
-        console.error( 'Login failed' )
-      }
-      */
-    }
-    else{
-      console.error( 'Login form is invalid' )
-    }
-
-
+    return "Título Incorrecto"
 
   }
 
