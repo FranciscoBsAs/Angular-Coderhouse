@@ -1,4 +1,15 @@
 
-<p BigTitleDirective class="toolbarLocal"  >
-    {{titleApp}}
-</p>
+<div class="toolbarLocal" >
+
+    <p BigTitleDirective >
+        {{titleApp}}
+    </p>
+    
+    <p *ngIf="userNameTitle !== null" >
+        User: {{ userNameTitle }}
+    </p>
+
+    <p> {{titleRouting  }} </p>
+
+</div>
+
