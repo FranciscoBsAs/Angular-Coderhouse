@@ -1,10 +1,6 @@
 import { createAction, props } from "@ngrx/store"
-import { userInterface } from "../../../shared/sharedContent/entities"
+import { email_password_Interface, userInterface } from "../../../shared/sharedContent/entities"
 
-export interface email_password_Interface {
-    email : string,
-    password : string
-}
 
 
 export const Login = createAction(
@@ -29,7 +25,7 @@ export const LoginFailure = createAction(
 
     '[Auth] Login Failure',
 
-    props< { error : string } >()
+    props< { theError : string | null } >()
 
 )
 

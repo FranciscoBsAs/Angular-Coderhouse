@@ -12,7 +12,9 @@ export interface authStateInterface {
 
     currentUser : userInterface | null
     
-    isLoading : boolean
+    isLoading : boolean,
+
+    theError : string | null
 
 }
 
@@ -21,9 +23,12 @@ export const initialAuthState : authStateInterface = {
 
     email: null ,
     password: null,
+    currentUser: null,
     isLoggedIn: false,
     isAdmin: false,
-    currentUser: null,
-    isLoading: false
+    isLoading: false ,
+
+    theError: null
+
 
 }

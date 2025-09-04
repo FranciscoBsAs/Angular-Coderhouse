@@ -14,10 +14,13 @@ export const authReducer = createReducer(
             ...state,
             email: email,
             password: password,
-            isLoggedIn: true,
+            
+            isLoading: true,
 
-            // esta bien esto?
-            isLoading: true
+            isLoggedIn: false,
+
+            theError: null
+            
         }
     ) )
     ,
@@ -25,13 +28,39 @@ export const authReducer = createReducer(
 
         {
             ...state,
+
             currentUser: user,
+
             isLoading: false,
-            isLoggedIn: true
+
+            isLoggedIn: true ,
+
+            theError: null,
+
+
         }
 
     ) )
     ,
+
+    on( AuthActions.LoginFailure, ( state, { theError } ) => (
+
+        {
+            ...state,
+
+            isLoading: false,
+
+            currentUser: null ,
+
+            isLoggedIn: false,
+
+            theError: theError as string
+        }
+
+    ) )
+
+,
+
     on( AuthActions.LogOut, ( state ) => (
 
         {
@@ -41,6 +70,11 @@ export const authReducer = createReducer(
             isLoggedIn: false,
             
             currentUser: null,
+
+            isLoading: false,
+
+            theError: null
+
             //isAdmin: false
         }
 

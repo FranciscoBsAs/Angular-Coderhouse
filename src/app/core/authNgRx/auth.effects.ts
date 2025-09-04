@@ -1,71 +1,114 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable } from "@angular/core";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+
 import * as AuthActions from './auth.actions'
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AuthService } from '../auth/auth-service';
-import { catchError, of, switchMap, tap } from 'rxjs';
-import { userInterface } from '../../../shared/sharedContent/entities';
+import { catchError, map, of, switchMap, tap } from "rxjs";
+import { userInterface } from "../../../shared/sharedContent/entities";
+import { UsersAPIService } from "../users/users-api-service";
+import { Router } from "@angular/router";
+import { RoutingPaths } from "../../../shared/urlRoutesEnum";
 
-
-@Injectable()
+@Injectable ()
 
 export class AuthEffects {
 
     private actions$ : Actions = inject( Actions )
 
-    private authService : AuthService = inject( AuthService )
+    private usersAPI : UsersAPIService = inject( UsersAPIService ) 
 
-    //public loggedUser! : userInterface | null
+    private theRouter : Router = inject( Router )
 
-
-    public logginEffects$ = createEffect( () => (
+    
+    logginEffect$ = createEffect ( () => (
 
         this.actions$.pipe(
 
+
             ofType( AuthActions.Login ),
 
-            switchMap( ( { email, password } ) => {
 
-                const isLoggedIn = this.authService.logIn( email, password ) ;
+            switchMap( ( { email, password } ) => ( 
 
-                if( isLoggedIn ) {
+                this.usersAPI.getUsersThroughMockIO().pipe(
 
-                    const loggedUser = this.authService.getLoggedUser()
+                    map( (usersData) => {
 
-                    console.log( 'Login exitoso, ahora vinculando con AuthService  para ¿idAdmin()? ', loggedUser )
-                    console.table( loggedUser )
+                        const user = usersData.find( ( u ) => u.email === email as string  &&  u.password === password as string )
+
+                        console.log('Usuario encontrado:', user); // <-- Verifica el objeto
 
 
-                    return of(
-                        AuthActions.LoginSuccess(
-                            {
-                                user: loggedUser as userInterface
-                            }
+                        return (
+                            user 
+                                ? AuthActions.LoginSuccess( { user: user } ) 
+                                : AuthActions.LoginFailure( { theError: "Usuarios o contraseña incorrectos" } )
                         )
-                    )
 
-                }
-                else{
-                    console.warn( "Login fallido, ahora no se esta vinculando con AuthService" )
+                    } )
+                    
+                    ,
 
-                    return of( AuthActions.LoginFailure( { error: 'Usuarios o contraseña incorrectos' }))
-                }
-            } )
-            ,
+                    catchError( ( err : string ) => of( AuthActions.LoginFailure(  { theError: 'Error inesperado en el sistema de autentificación... ' +  err }  ) ) )
 
-            catchError( ( err ) => {
-
-                console.error( "Error en el efecto de login, ", err )
-
-                return of(
-                    AuthActions.LoginFailure( { error: 'Error inesperado en el sistema de autentificación' } )
                 )
+
+            ) ),
+
+            
+        )
+
+    ) )
+
+    // Navegar cuando el login sale bien (sin dispatch)
+    loginNavigate$ = createEffect( () => (
+
+        this.actions$.pipe(
+            
+            ofType( AuthActions.LoginSuccess ),
+
+            tap( () => {
+
+                this.theRouter.navigate( [RoutingPaths.STUDENTS] )
 
             } )
 
         )
 
-    ) )
+
+    ),
+        { dispatch: false }
+    )
 
 
+
+    // Navegar al hacer logout (sin dispatch)
+    public logoutNavigate$ = createEffect(
+
+        () => 
+
+            this.actions$.pipe(
+
+                ofType( AuthActions.LogOut ),
+
+                tap( () => {
+
+                    this.theRouter.navigate( [ RoutingPaths.HOME ] )
+
+                } )
+
+            )
+        
+        ,
+        { dispatch: false }
+        
+        /*
+            Segun COPILOT:
+            El parámetro { dispatch: false } en un efecto de NgRx significa que ese efecto no va a despachar (emitir) ninguna acción al store.
+
+            Se usa cuando el efecto realiza una tarea secundaria (side effect) como navegación, mostrar un toast,
+             loguear en consola, etc., pero no necesita actualizar el estado de NgRx.
+        */
+
+    )
 
 }
