@@ -23,7 +23,7 @@
 
             </li>
 
-            <li class="nav-link custom-nav-item" *ngIf="isAdminProp" >
+            <li class="nav-link custom-nav-item" >
                 <mat-card-content>
                     <a [routerLink]="routingPathsInNavBar.REGISTRATIONS" > <!-- se usa property binding con [routerLink=""] -->
                         Inscripciones
@@ -36,7 +36,7 @@
 
             <li 
                 class="nav-link custom-nav-item"
-                *ngIf="( isLoggedIn$ | async)"
+                
             >
                 <mat-card-content>
                     <a [routerLink]="routingPathsInNavBar.LOG_OUT" >  <!--  se usa property binding -->

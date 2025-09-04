@@ -15,31 +15,15 @@ import { Observable } from 'rxjs';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
-export class Navbar implements OnInit {
+export class Navbar {
 
   public routingPathsInNavBar = RoutingPaths
 
-  public isAdminProp! : boolean
+  //public ! : boolean
   
-  isLoggedIn$! : Observable<boolean>
 
-  constructor( public authService : AuthService, private theStore : Store ) {
-    this.isLoggedIn$ = this.theStore.select( selectIsLoggedIn )
-  }
+  constructor() {}
 
 
-  ngOnInit(): void {
-    //this.isAdminProp = this.authService.isAdmin()
-    //this.isLoggedIn$ = this.theStore.select( selectIsLoggedIn )
-  }
 
-  /*
-  onLogOutClick ( ev: Event ) {
-
-    ev.preventDefault()
-
-    //this.theStore.dispatch(  )
-
-  }
-  */
 }
