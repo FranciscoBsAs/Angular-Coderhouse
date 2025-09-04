@@ -21,6 +21,7 @@ export class LogOutComponent implements OnInit {
     setTimeout( () => {
       
       this.theStore.dispatch( AuthActions.LogOut() )
+      
      }, 1500 )
      
   }
