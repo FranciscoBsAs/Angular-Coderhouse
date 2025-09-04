@@ -1,6 +1,7 @@
 export enum RoutingPaths {
 
     HOME = '',
+    HOME_WITH_BAR = '/',
     USERS = 'usuarios',
     STUDENTS = 'estudiantes',
     COURSES = 'cursos',
