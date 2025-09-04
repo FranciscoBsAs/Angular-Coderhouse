@@ -14,24 +14,15 @@ import { RoutingPaths } from '../../../shared/urlRoutesEnum';
 })
 export class LogOutComponent implements OnInit {
 
-
   private theStore = inject(Store)
-
-  private theRouter = inject( Router )
-
 
   ngOnInit(): void {
       
-      this.theStore.dispatch( AuthActions.LogOut() )
-
-            
     setTimeout( () => {
-
-      this.theRouter.navigate([ RoutingPaths.HOME ])
-
+      
+      this.theStore.dispatch( AuthActions.LogOut() )
      }, 1500 )
      
-      //this.theRouter.navigate( [ RoutingPaths.HOME ] )
   }
 
 }
