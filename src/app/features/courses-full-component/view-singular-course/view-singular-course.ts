@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { courseInterface } from '../../../../shared/sharedContent/entities';
+import { courseInterface, studentInterface } from '../../../../shared/sharedContent/entities';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { State } from '@ngrx/store';
 
 @Component({
   selector: 'app-view-singular-course',
@@ -15,7 +16,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 export class ViewSingularCourse {
 
-  aSingularCourse! : courseInterface | undefined ;
+  aSingularCourse! :  courseInterface | undefined ;
+
+  studentsCoursingProp : studentInterface[] = []
 
   constructor( private theRouter : Router ) {
 
@@ -23,9 +26,21 @@ export class ViewSingularCourse {
 
     this.aSingularCourse = theCurrentNavigation?.extras.state?.['courseSelectedToView']
 
+    this.studentsCoursingProp = Array.isArray( this.aSingularCourse?.fullNamesOfStudentsCoursing )    
+                              ? ( this.aSingularCourse?.fullNamesOfStudentsCoursing as studentInterface[] )
+                              : []
   }
 
 
-  columnTitlesSingular : string[] = [ 'Name', 'Code', 'Credits' ]
+  columnTitlesSingular : string[] = [ 'Name', 'Code', 'Credits', 'StudentsCoursing' ]
 
 }
+
+
+/*
+
+Array.isArray()
+es un método de JavaScript que verifica si el valor recibido es un array.
+Sirve para evitar errores al usar *ngFor, que solo funciona con arrays.
+
+*/

@@ -1,11 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { courseInterface } from '../../../../shared/sharedContent/entities';
+import { courseInterface, studentInterface } from '../../../../shared/sharedContent/entities';
 //import { CoursesFullComponent } from '../courses-full-component';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
 import { AuthService } from '../../../core/auth/auth-service';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { selectIsAdmin } from '../../../core/authNgRx/auth.selector';
+import { StudentsAPIService } from '../../students-full-component/students-api-service';
 
 @Component({
   selector: 'courses-table',
@@ -26,12 +29,31 @@ export class CoursesTable implements OnInit {
 
   isAdminProp! : boolean
 
+  studentsArrayToDetails! : studentInterface[]
+
   
-  constructor( private theRouter : Router, private authService : AuthService ) {}
+  constructor( 
+    private theRouter : Router,
+    private authService : AuthService ,
+    private theAuthStore : Store,
+    private studentsAPI : StudentsAPIService
+  ) {}
 
 
   ngOnInit(): void {
-      this.isAdminProp = this.authService.isAdmin()
+      
+    this.theAuthStore.select( selectIsAdmin ).subscribe( ( isAdmin ) => {
+
+      this.isAdminProp = Boolean(isAdmin)
+
+    })
+
+    this.studentsAPI.getStudentsThroughMockIO().subscribe( ( studentsFromDB ) => {
+
+      this.studentsArrayToDetails = studentsFromDB
+
+    } )
+
   }
 
   // nuevo planteo routing edit
@@ -57,9 +79,31 @@ export class CoursesTable implements OnInit {
 
   viewDetailSingularCourseFromChild ( certainCourse : courseInterface ) {
 
+    // Filtrar los estudiantes que cursan el curso seleccionado
+
+    const studentsCoursing : studentInterface[] = this.studentsArrayToDetails.filter( ( student ) : boolean => (
+
+      student.courses.includes( certainCourse.name )
+
+    ) )
+
+    const fullNamesOfStudentsCoursing = studentsCoursing.map(
+
+      (student) : string => `${student.name} ${student.surname}`
+
+    ).join( ' | ' )
+
+
     this.theRouter.navigate( [ `/${RoutingPaths.VIEW_SINGULAR_COURSE}` ] ,
       {
-        state: { courseSelectedToView: certainCourse }
+        state: { 
+          courseSelectedToView: {
+
+            ...certainCourse,
+            fullNamesOfStudentsCoursing : studentsCoursing
+
+          }
+        }
       }
     )
 
