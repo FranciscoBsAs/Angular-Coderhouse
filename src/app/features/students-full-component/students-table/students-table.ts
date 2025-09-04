@@ -7,6 +7,8 @@ import { Router, RouterModule } from '@angular/router';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
 import { AuthService } from '../../../core/auth/auth-service';
+import { Store } from '@ngrx/store';
+import { selectIsAdmin } from '../../../core/authNgRx/auth.selector';
 
 @Component({
   selector: 'students-table',
@@ -28,15 +30,21 @@ export class StudentsTable implements OnInit {
 
   constructor( 
     private theRouter : Router,
-    public authService : AuthService
+    public authService : AuthService,
+
+    private theStore : Store
   ) {}
 
 
   ngOnInit(): void {
 
-    this.isAdminProp = this.authService.isAdmin()
+    this.theStore.select( selectIsAdmin ).subscribe( ( isAdmin ) => {
 
+      this.isAdminProp = !!isAdmin
+
+    } )
   }
+  
 
   viewDetailsOfStudent ( student : studentInterface ) {
 

@@ -28,7 +28,7 @@ export class ViewSingularStudent {
   }
 
 
-  columnTitlesSingular : string[] = [ 'FullName', 'DNI', 'Age', 'Average' ]
+  columnTitlesSingular : string[] = [ 'FullName', 'DNI', 'Age', 'Average', 'Registered Courses' ]
 
 
 }
