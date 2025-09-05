@@ -58,7 +58,21 @@ export const routes : Routes = [
         loadComponent: () => import( './features/courses-full-component/view-singular-course/view-singular-course' ).then( ( module ) => module.ViewSingularCourse )
     },
 
-    
+    {
+        path: RoutingPaths.USERS,
+        loadComponent: () => import('./features/users-render-component/users-render-component').then( (module) => module.UsersRenderComponent )
+    },
+    {
+        path: RoutingPaths.VIEW_SINGULAR_USER ,
+        loadComponent: () => import('./features/users-render-component/view-singular-user/view-singular-user').then( module => module.ViewSingularUser )
+    },
+
+    {
+        path: RoutingPaths.EDIT_SINGULAR_USER ,
+        canActivate: [roleGuard],
+        loadComponent: () => import( './features/users-render-component/edit-user-form/edit-user-form' ).then( ( module ) => module.EditUserForm )
+    },
+
     {
         path: RoutingPaths.LOG_OUT,
         loadComponent: () => import( './core/log-out-component/log-out-component' ).then( m => m.LogOutComponent )
