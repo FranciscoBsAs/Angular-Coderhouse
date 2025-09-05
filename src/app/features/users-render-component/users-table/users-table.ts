@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
   templateUrl: './users-table.html',
   styleUrl: './users-table.css'
 })
+
 export class UsersTable implements OnInit {
 
   @Input() usersInTable : userInterface[] = []
@@ -52,12 +53,11 @@ export class UsersTable implements OnInit {
 
   editUserFromChild ( certainUser : userInterface ) : void {
 
-    this.theRouter.navigate( [ `/${RoutingPaths.EDIT_SINGULAR_USER}` ] ,
-
+    this.theRouter.navigate( 
+      [ `/${RoutingPaths.EDIT_SINGULAR_USER}` ] ,
       {
         state: { userSelectedToEdit: certainUser }
       }
-
     ) 
   }
 
@@ -80,5 +80,6 @@ export class UsersTable implements OnInit {
     this.deleteUserEventEmitter.emit( certainUser )
 
   }
+
 
 }

@@ -1,0 +1,153 @@
+<div class="edit-form" >
+
+    <h2> Editar Usuario </h2>
+
+    <br><br>
+
+    <form [formGroup]="editUserForm"  (ngSubmit)="onSubmit()" >
+
+        <div  class="formField-group">
+
+            <label for="UserName">UserName</label>
+
+            <input
+                type="text"
+                id="UserName"
+                formControlName="userName"
+                placeholder="ingrese el nombre de usuario a editar"
+            >
+
+            <div
+                *ngIf="(
+                    editUserForm.get('userName')?.errors?.['required']
+                    &&
+                    editUserForm.get('userName')?.touched
+                )"
+                class="err-class"
+            >
+                El nombre es requerido
+            </div>
+
+            <div 
+                *ngIf="(
+                    editUserForm.get('userName')?.errors?.[ 'onlyLetters' ]
+                    &&
+                    editUserForm.get('userName')?.touched
+                )"
+                class="err-class" 
+            >
+                Nombre unicamente con letras
+            </div>
+
+            <div
+                *ngIf="(
+                    editUserForm.get('userName')?.errors?.[ 'firstLetterIsNotUpperCase' ]
+                    &&
+                    editUserForm.get('userName')?.touched
+                )"
+                class="err-class"
+            >
+                >Nombre debe empezar con mayuscula   
+            </div>
+
+        </div>
+
+
+
+        <div class="formField-group">
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="text"
+                id="email"
+                formControlName="email"
+                placeholder="ingrese el email editado"
+            >
+
+            <div 
+                *ngIf="(
+                    editUserForm.get('email')?.errors?.['required']
+                    &&
+                    editUserForm.get( 'email' )?.touched
+                )"
+                class="err-class"
+            >
+                >Email es requerido
+            </div>
+
+
+            <div 
+                *ngIf="(
+                    editUserForm.get('email')?.errors?.['email']
+                    &&
+                    editUserForm.get( 'email' )?.touched
+                )"
+                class="err-class"
+            >
+                >Email requiere formato E-mail
+            </div>
+
+
+            <div 
+                *ngIf="(
+                    editUserForm.get('email')?.errors?.[ 'hasEmoticon' ]
+                    &&
+                    editUserForm.get('email')?.touched
+                )"
+                class="err-class" 
+            >
+                >No se permite ingresar emoticones
+            </div>
+
+
+        </div>
+
+
+
+        <div class="formField-group" >
+
+            <label for="role"> Role </label>
+
+            <input
+                type="text"
+                id="role"
+                formControlName="role"
+                placeholder="ingrese el rol del usuario"
+            >
+
+            <div
+                *ngIf="(
+                    editUserForm.get('role')?.errors?.['required']
+                    &&
+                    editUserForm.get('role')?.touched
+                )"
+                class="err-class"
+            >
+                >El role es requerido
+            </div>
+
+        </div>
+
+        
+        <button 
+            type="submit" 
+            [disabled]="editUserForm.invalid"
+            class="submit-btn"
+        >
+            Editar Usuario
+        </button>
+
+        <button
+            type="button"
+            (click)="handleOnReset()"
+            class="reset-btn"
+        >
+            Limpiar formulario
+        </button>
+
+    </form>
+
+</div>

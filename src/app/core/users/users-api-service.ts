@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { RoutingDB } from '../../../enumRoutesDB';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { userInterface } from '../../../shared/sharedContent/entities';
+import { studentInterface, userInterface } from '../../../shared/sharedContent/entities';
+import { RoutingPaths } from '../../../shared/urlRoutesEnum';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,20 @@ export class UsersAPIService {
     return this.myHTTP.delete<void>( `${this.baseURL}/${RoutingDB.USERS}/${someUser.id}` )
 
   }
+
+
+  editUserInDB ( updatedUser : userInterface ) : Observable<userInterface> {
+
+    return(
+
+      this.myHTTP.put<userInterface>(
+        `${this.baseURL}/${RoutingDB.USERS}/${updatedUser.id}` ,
+        updatedUser
+      )
+    
+    )
+
+  }
+
 
 }
