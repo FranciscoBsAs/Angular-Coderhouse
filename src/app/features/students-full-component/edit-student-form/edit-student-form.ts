@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { studentInterface } from '../../../../shared/sharedContent/entities';
-import { MatSnackBar, MatSnackBarConfig, TextOnlySnackBar } from '@angular/material/snack-bar'
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -11,6 +10,7 @@ import { StudentsAPIService } from '../students-api-service';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 
 import * as myCustomValidators from '../../../../shared/validatorFunctions/ValidatorFunctions'
+import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
 
 
 @Component({
@@ -28,13 +28,13 @@ export class EditStudentForm implements OnInit {
 
   updatedStudent! : studentInterface
 
-  private _myEditorSnackBar : MatSnackBar = inject( MatSnackBar )
 
-  private configurationOfMySnackBar : MatSnackBarConfig<TextOnlySnackBar> = {
-      duration: 3000,
-  }
-
-  constructor( private myFormBuilder : FormBuilder, private theRouter : Router, private studentsAPI : StudentsAPIService ) {
+  constructor( 
+    private myFormBuilder : FormBuilder,
+    private theRouter : Router,
+    private studentsAPI : StudentsAPIService ,
+    private snackBar : MatSnackBarService
+  ) {
 
     const theCurrentNavigation : Navigation | null = this.theRouter.getCurrentNavigation() ;
     
@@ -54,8 +54,7 @@ export class EditStudentForm implements OnInit {
         }
       )
 
-
-
+      
       if ( this.studentChosenToEdit ) {
 
         this.editStudentForm.patchValue( this.studentChosenToEdit )
@@ -68,32 +67,24 @@ export class EditStudentForm implements OnInit {
   onSubmit() {
 
     if ( this.editStudentForm.valid ) {
-      //this.studentEdited.emit( this.editStudentForm.value )
 
       this.updatedStudent = { ...this.editStudentForm.getRawValue() }
-
-
-      //this.editStudentForm.reset()
-
-      //this.showSuccesEdit_SnackBar()
+    
     }
 
     this.studentsAPI.editStudentInDB( this.updatedStudent ).subscribe(
       {
         next: () => {
 
-          this.showSuccesEdit_SnackBar()
+          this.snackBar.showSuccessEdit_SnackBar( 'Estudiante', 'Cerrar' )
 
           this.theRouter.navigate( [ RoutingPaths.STUDENTS ] )
 
         },
-        error: (err) => { console.error( 'Error al editar estudiante', err ), this.showNotFounded_SnackBar() }
-
+        error: () => {  this.snackBar.showNotFound_SnackBar('Estudiante', 'Cerrar') }
         
       }
     )
-
-    //this.handleOnReset()
 
   }
 
@@ -101,22 +92,5 @@ export class EditStudentForm implements OnInit {
     this.editStudentForm.reset()
   }
 
-
-  showSuccesEdit_SnackBar() {
-    const message = 'Estudiante editado correctamente'
-    const action = 'Cerrar'
-    
-    this._myEditorSnackBar.open( message, action, this.configurationOfMySnackBar )
-  }
-
-
-  showNotFounded_SnackBar () {
-
-    const messageNotFound = 'Estudiante no encontrado'
-    const actionNotFound : string = 'Cerrar'
-
-    this._myEditorSnackBar.open( messageNotFound, actionNotFound, this.configurationOfMySnackBar ) 
-
-  }
 
 }
