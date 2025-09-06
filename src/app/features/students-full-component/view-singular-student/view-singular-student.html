@@ -45,14 +45,22 @@
         <th mat-header-cell *matHeaderCellDef> Registered Courses </th>
         <td mat-cell *matCellDef="let elementSingularStudent">
 
-        <!--    {{ elementSingularStudent?.courses?.join(' | ')  }} -->
-
-
         <ul>
-            <li *ngFor="let course of elementSingularStudent?.courses" >
+            <li 
+                class="course-item-row"
+                *ngFor="let course of elementSingularStudent?.courses"
 
-                {{ course }}
-            
+            >
+
+                {{ course }} 
+                <button 
+                    (click)="UnenrollFromCourse(course)" 
+                    
+                >
+                    Desinscribir
+                </button>
+
+
             </li>
         </ul>
 

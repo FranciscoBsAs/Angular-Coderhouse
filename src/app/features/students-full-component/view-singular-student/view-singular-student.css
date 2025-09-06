@@ -1,0 +1,39 @@
+.course-item-row {
+    
+    justify-content:flex-start;
+    align-items:flex-start;
+    gap: 10px;
+    margin-bottom: 3px;
+    /* width: 100%; */
+    list-style-position: inside ;
+
+}
+
+.course-item-row span{
+    font-size: 0.3rems;
+}
+.course-item-row button {
+
+    min-width: 10px;
+
+    
+
+    font-size: 0.9rem;
+
+    border-radius: 2px;
+
+    border: 2px solid #222 ;
+
+    background: #fff ;
+
+    cursor: pointer ;
+
+    transition: backgroud 0.5s;
+
+}
+
+
+.course-item-row button:hover {
+
+    background: #ffe0b2;
+}   
