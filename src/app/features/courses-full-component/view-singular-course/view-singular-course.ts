@@ -6,6 +6,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { State } from '@ngrx/store';
+import { StudentsAPIService } from '../../students-full-component/students-api-service';
+import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
 
 @Component({
   selector: 'app-view-singular-course',
@@ -20,7 +22,13 @@ export class ViewSingularCourse {
 
   studentsCoursingProp : studentInterface[] = []
 
-  constructor( private theRouter : Router ) {
+  columnTitlesSingular : string[] = [ 'Name', 'Code', 'Credits', 'StudentsCoursing' ]
+
+  constructor( 
+    private theRouter : Router ,
+    private studentsAPI : StudentsAPIService,
+    private snackBar : MatSnackBarService
+  ) {
 
     const theCurrentNavigation = this.theRouter.getCurrentNavigation() ;
 
@@ -31,8 +39,55 @@ export class ViewSingularCourse {
                               : []
   }
 
+ 
 
-  columnTitlesSingular : string[] = [ 'Name', 'Code', 'Credits', 'StudentsCoursing' ]
+  public unenrollStudentFromCourse ( certainStudent : studentInterface ) {
+
+    if( !this.aSingularCourse || !certainStudent ) return
+
+
+    const updatedCourses = certainStudent.courses.filter( 
+      ( eachCourse ) => eachCourse !== this.aSingularCourse?.name
+    )
+
+
+    const updatedSingularStudent : studentInterface = {
+
+      ...certainStudent ,
+      courses: updatedCourses
+
+    }
+
+
+    this.studentsAPI.editStudentInDB( updatedSingularStudent ).subscribe(
+
+      {
+        next: ( updatedStudent ) => {
+
+          this.studentsCoursingProp = this.studentsCoursingProp.map(
+
+            (eachStudent) => eachStudent.id === updatedStudent.id
+                                              ? updatedStudent
+                                              : eachStudent
+          )
+
+
+          this.studentsCoursingProp = this.studentsCoursingProp.filter(
+
+            ( newEachStudent ) => newEachStudent.id !== updatedStudent.id
+
+          )
+
+          
+          this.snackBar.showSuccessEdit_SnackBar( 'Curso y Estudiante', 'Cerrar' )
+        },
+
+        error: () => this.snackBar.showNotFound_SnackBar( 'Estudiante o Curso', 'Cerrar' )
+      }
+
+    )
+
+  }
 
 }
 

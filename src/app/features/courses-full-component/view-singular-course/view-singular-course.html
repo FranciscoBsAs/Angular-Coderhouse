@@ -1,5 +1,3 @@
-<p>view-singular-course works!</p>
-
 <table
     mat-table
     [dataSource]="[aSingularCourse]"
@@ -51,7 +49,12 @@
             <ul>
 
                 <li *ngFor="let student of studentsCoursingProp" >
-                    {{ student.name }} {{ student.surname }}
+                    {{ student?.name }} {{ student?.surname }}
+
+                    <button (click)="unenrollStudentFromCourse(student)" >
+                        Desinscribir
+                    </button>
+
                 </li>
 
             </ul>
