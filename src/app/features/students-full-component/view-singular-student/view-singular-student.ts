@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { StudentsAPIService } from '../students-api-service';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
+import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class ViewSingularStudent  {
 
   constructor( 
     private theRouter : Router ,
-    private studentsService : StudentsAPIService
+    private studentsService : StudentsAPIService,
+    private snackBar : MatSnackBarService
   ) {
 
     const theNavigation = this.theRouter.getCurrentNavigation();
@@ -53,12 +55,11 @@ export class ViewSingularStudent  {
     this.studentsService.editStudentInDB( updatedSingularStudent ).subscribe(
 
       {
-        next: ( student ) => {
-          this.aSingularStudent = student
+        next: ( updatedStudent ) => {
+          this.aSingularStudent = updatedStudent
+          this.snackBar.showSuccessEdit_SnackBar( 'Estudiante', 'Cerrrar' )
         },
-        error: (err) => {
-          console.error( 'Error al desinscribir', err )
-        }
+        error: (err) => this.snackBar.showNotFound_SnackBar( `Estudiante...${err}`, 'Cerrar' )
       }
 
     )
