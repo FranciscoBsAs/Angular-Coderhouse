@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MyMatCommonRouterModule } from '../../my-mat-common-router/my-mat-common-router-module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { studentInterface } from '../../../../shared/sharedContent/entities';
+import { courseInterface, studentInterface } from '../../../../shared/sharedContent/entities';
 import { averageSup0, firstLetterUpperCaseValidator, onlyLettersValidator } from '../../../../shared/validatorFunctions/ValidatorFunctions';
 import { StudentsAPIService } from '../students-api-service';
+import { CoursesAPIService } from '../../courses-full-component/courses-api-service';
 
 @Component({
   selector: 'add-student-form',
@@ -18,15 +19,29 @@ export class AddStudentForm implements OnInit {
   addStudentForm! : FormGroup ;
 
   private newStudentData! : studentInterface
+
+  public coursesArray : courseInterface[] = []
   
   constructor(
     private myFormBuilder : FormBuilder,
-    private studentsAPI : StudentsAPIService
+    private studentsAPI : StudentsAPIService,
+    private coursesAPI : CoursesAPIService
   
   ) {}
 
   
   ngOnInit(): void {
+
+
+    this.coursesAPI.getCoursesThroughMockIO().subscribe(
+      {
+        next: ( courses ) => {
+          this.coursesArray = courses
+        }
+      }
+    )
+
+
     this.addStudentForm = this.myFormBuilder.group(
       {
         name: [ '', [ Validators.required, onlyLettersValidator, firstLetterUpperCaseValidator ] ],
@@ -35,10 +50,12 @@ export class AddStudentForm implements OnInit {
         
         age: [ '', [ Validators.required ] ],
         average: [ '', [ Validators.required, averageSup0, Validators.max(10) ] ],
+        courses: [[]],
         id: ['']
       }
-    ),
-
+    )
+    
+    
     this.addStudentForm.get( 'dni' )?.valueChanges.subscribe( (dniValue) => {
 
       this.addStudentForm.get('id')?.setValue( 
@@ -51,11 +68,26 @@ export class AddStudentForm implements OnInit {
       )
 
     } )
+    
 
   }
 
 
   onSubmit () : void {
+
+    /*
+    const dniValue : number = this.addStudentForm.get('dni')?.value ;
+
+    this.addStudentForm.get('id')?.setValue(
+
+      dniValue == null
+                ? ''
+                : String(dniValue) ,
+
+      { emitEvent: false }
+    )
+
+    */
 
     if( !this.addStudentForm.valid ) { 
       return

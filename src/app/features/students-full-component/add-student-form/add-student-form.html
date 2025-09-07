@@ -161,6 +161,26 @@
             >Promedio es requerido
         </div>
 
+
+        <br><br>
+
+        <div class="formField-group" >
+            
+            <label for="courses"> Cursos </label>
+
+            <select  id="courses"  formControlName="courses" multiple >
+
+                <option
+                    *ngFor="let eachCourse of coursesArray"
+                    [value]="eachCourse.name"
+                >
+                <span>{{ eachCourse.name }}</span> 
+                </option>
+
+            </select>
+
+        </div>
+
     </div>
 
     <!--

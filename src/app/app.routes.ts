@@ -32,6 +32,7 @@ export const routes : Routes = [
         path: RoutingPaths.REGISTRATIONS,
         loadComponent: () => import( './features/registrations-full-component/registrations-full-component' ).then( (module) => module.RegistrationsFullComponent )
     },
+   
     {
         path: RoutingPaths.VIEW_SINGULAR_STUDENT,
         //component: ViewSingularStudent
