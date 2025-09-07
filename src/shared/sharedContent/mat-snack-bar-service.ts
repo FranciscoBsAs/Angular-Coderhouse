@@ -12,7 +12,7 @@ export class MatSnackBarService {
 
   public configurationOfSnackBar : MatSnackBarConfig<TextOnlySnackBar> = {
 
-    duration: 3000
+    duration: 4000
 
   }
 
