@@ -67,6 +67,12 @@ export class Toolbar implements OnInit {
 
     [ RoutingPaths.EDIT_SINGULAR_COURSE ]: "edit-course-form",
 
+    [ RoutingPaths.USERS ]: 'users-full-component' ,
+
+    [ RoutingPaths.VIEW_SINGULAR_USER ]: "view-singular-user" ,
+
+    [ RoutingPaths.EDIT_SINGULAR_USER ]: "edit-user-form",
+    
     [ RoutingPaths.NOT_FOUND_ROUTE ]: "not-found-component"
 
   }
