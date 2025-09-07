@@ -1,9 +1,23 @@
+
 .navbarLocal {
+  position:absolute;
+  top: 0;
+    left: 0;
   grid-area: navbar;
   border: 6px solid olive;
-  padding: 8px 12px;       /* opcional: para que el borde se vea mejor */
   border-radius: 8px;
+  padding: 8px 12px;       /* opcional: para que el borde se vea mejor */
 }
+
+
+
+
+
+
+
+
+
+
 
 .custom-nav-item {
   cursor: pointer;
