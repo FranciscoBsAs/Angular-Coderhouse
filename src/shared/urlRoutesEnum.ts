@@ -23,3 +23,4 @@ export enum RoutingPaths {
     NOT_FOUND_ROUTE = '**',
    
 }
+

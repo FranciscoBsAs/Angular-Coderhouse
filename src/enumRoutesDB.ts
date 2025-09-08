@@ -1,12 +1,14 @@
-export enum RoutingDB {
+import { enviroment } from "./environments/environment.prod";
 
-    EDPOINT_APIio_DB = 'https://68916597447ff4f11fbc72b6.mockapi.io',
+export const RoutingDB = {
 
-    ENDPOINT_SECOND_APIio_DB = 'https://68a5f2ce2a3deed2960f6fd1.mockapi.io',
+    EDPOINT_APIio_DB: enviroment.EDPOINT_FIRST_API_DB,
+
+    ENDPOINT_SECOND_APIio_DB: enviroment.ENDPOINT_SECOND_API_DB,
 
 
-    STUDENTS = 'students',
-    COURSES = 'courses',
-    USERS = 'users'
+    STUDENTS: 'students',
+    COURSES:'courses',
+    USERS: 'users'
 
 }
