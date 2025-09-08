@@ -5,6 +5,7 @@ import { courseInterface, studentInterface } from '../../../../shared/sharedCont
 import { averageSup0, firstLetterUpperCaseValidator, onlyLettersValidator } from '../../../../shared/validatorFunctions/ValidatorFunctions';
 import { StudentsAPIService } from '../students-api-service';
 import { CoursesAPIService } from '../../courses-full-component/courses-api-service';
+import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
 
 @Component({
   selector: 'add-student-form',
@@ -12,9 +13,8 @@ import { CoursesAPIService } from '../../courses-full-component/courses-api-serv
   templateUrl: './add-student-form.html',
   styleUrl: './add-student-form.css'
 })
-export class AddStudentForm implements OnInit {
 
-  //@Output() studentToAdd : EventEmitter<studentInterface> = new EventEmitter<studentInterface>
+export class AddStudentForm implements OnInit {
 
   addStudentForm! : FormGroup ;
 
@@ -25,13 +25,13 @@ export class AddStudentForm implements OnInit {
   constructor(
     private myFormBuilder : FormBuilder,
     private studentsAPI : StudentsAPIService,
-    private coursesAPI : CoursesAPIService
+    private coursesAPI : CoursesAPIService ,
+    private snackBar : MatSnackBarService
   
   ) {}
 
   
   ngOnInit(): void {
-
 
     this.coursesAPI.getCoursesThroughMockIO().subscribe(
       {
@@ -56,11 +56,11 @@ export class AddStudentForm implements OnInit {
     )
     
     
-    this.addStudentForm.get( 'dni' )?.valueChanges.subscribe( (dniValue) => {
+    this.addStudentForm.get( 'dni' )?.valueChanges.subscribe( (dniValue : number) => {
 
       this.addStudentForm.get('id')?.setValue( 
         
-        dniValue == null || dniValue === ''
+        dniValue == null
                   ? ''
                   : String( dniValue )
         ,
@@ -68,26 +68,11 @@ export class AddStudentForm implements OnInit {
       )
 
     } )
-    
 
   }
 
 
   onSubmit () : void {
-
-    /*
-    const dniValue : number = this.addStudentForm.get('dni')?.value ;
-
-    this.addStudentForm.get('id')?.setValue(
-
-      dniValue == null
-                ? ''
-                : String(dniValue) ,
-
-      { emitEvent: false }
-    )
-
-    */
 
     if( !this.addStudentForm.valid ) { 
       return
@@ -100,15 +85,18 @@ export class AddStudentForm implements OnInit {
       {
         next: ( ) => {
           console.log( 'estudiante creado con exito', this.newStudentData.name, " ", this.newStudentData.surname )
+
+          this.snackBar.showSuccessAdd_SnackBar('Estudiante', 'Cerrar')
+
           this.handleOnReset()
         },
         error: ( err ) => {
           console.error( 'Error al añadir estudiante', err )
+          this.snackBar.showNotFound_SnackBar('Estudiante', 'Cerrar')
         }
       }
 
     )
-
 
   }
 
