@@ -43,7 +43,7 @@ describe('Navbar', () => {
     const links = compiled.querySelectorAll( 'a' )
 
     
-    expect( links.length ).toBe(3)
+    expect( links.length ).toBe(5)
 
   } )
 

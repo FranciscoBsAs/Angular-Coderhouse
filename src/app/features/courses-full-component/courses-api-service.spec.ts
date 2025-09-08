@@ -15,7 +15,8 @@ describe('CoursesAPIService', () => {
     name: "Física",
     code: "FIS103",
     credits: 4,
-    id: "00db"
+    id: "00db",
+    fullNamesOfStudentsCoursing: "Miguel Mckenzie"
   }
 
   const baseURLToTesting : string = RoutingDB.EDPOINT_APIio_DB
