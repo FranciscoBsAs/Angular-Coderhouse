@@ -8,8 +8,6 @@ import { MatSnackBar, MatSnackBarConfig, TextOnlySnackBar } from '@angular/mater
 
 export class MatSnackBarService {
 
-  //private sharedSnackBar
-
   public configurationOfSnackBar : MatSnackBarConfig<TextOnlySnackBar> = {
 
     duration: 4000
@@ -21,11 +19,9 @@ export class MatSnackBarService {
 
   showSuccessEdit_SnackBar ( element : string, action : string ) {
 
-    let messageEditSucces =  `${element} editado correctamente`
+    const messageEditSucces =  `${element} editado correctamente`
 
-    let actionName = action
-
-    //let sharedEditorSnackBar : MatSnackBar = inject(MatSnackBar)
+    const actionName = action
 
     this.sharedEditorSnackBar.open( messageEditSucces, actionName, this.configurationOfSnackBar )
 
@@ -34,12 +30,23 @@ export class MatSnackBarService {
 
   showNotFound_SnackBar ( element : string , action : string ) {
 
-    let messageNotFound = `${element} no encontrado`
+    const messageNotFound = `${element} no encontrado`
 
-    let actionNotFoundName : string = action
+    const actionNotFoundName : string = action
 
     
     this.sharedEditorSnackBar.open( messageNotFound, actionNotFoundName, this.configurationOfSnackBar )
+
+  }
+
+
+  showSuccessAdd_SnackBar ( element : string, action : string ) {
+
+    const messageAddSuccess = `${element} añadido con exito`
+
+    const actionName = action
+
+    this.sharedEditorSnackBar.open( messageAddSuccess, actionName, this.configurationOfSnackBar )
 
   }
 
