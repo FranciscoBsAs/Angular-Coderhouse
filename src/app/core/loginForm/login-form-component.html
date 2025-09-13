@@ -1,29 +1,47 @@
-<br><br>
+
 <form 
     [formGroup]="loginForm"
     (ngSubmit)="onSubmit()"
+    class="form-oval"
 >
-    <label for="email" > Email: </label>
+    <div class="form-row">
 
-    <input
-        type="text"
-        id="email"
-        formControlName="email"
-        required
-    >
+        <label for="email" > Email: </label>
+
+        <input
+            type="text"
+            id="email"
+            formControlName="email"
+            required
+        >
+                
+        <div 
+            *ngIf="(
+                loginForm.get('email')?.errors?.[ 'required' ]
+                &&
+                loginForm.get('email')?.touched
+            )"
+            class="err-class" >
+            <h5>
+                El email es requerido
+            </h5>
+        </div>
 
 
-    <label for="password"> Password: </label>
+        <label for="password"> Password: </label>
 
-    <input
-        type="password"
-        id="password"
-        formControlName="password"
-    >
+        <input
+            type="password"
+            formControlName="password"
+            id="password"
+        >
 
+
+        <button class="rounded-btn" type="submit">Login</button>
     
-    <button type="submit">Login</button>
+</div>
 
 </form>
-
+<!--
 {{ this.loggedUser$| async | json }}
+-->

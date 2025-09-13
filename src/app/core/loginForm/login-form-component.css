@@ -1,0 +1,45 @@
+.form-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px; /* Espacio entre Email y Password */
+}
+
+.form-row label {
+  margin-right: 1px;
+  font-weight: bold;
+  font-size: larger;
+  color: darkblue;
+}
+
+.form-row input {
+  width: 180px;
+  padding: 4px;
+}
+
+
+.rounded-btn {
+  border-radius: 18px;
+  font-weight: bold;
+  padding: 6px 22px;
+  border: 2px solid darkorange;
+  background-color: wheat;
+  color: black;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.rounded-btn:hover {
+  background-color: #a8ffb0;
+}
+
+.form-oval {
+  background:whitesmoke;
+  border: 4px solid #0065bd;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 32px 40px;
+  width: fit-content;
+  margin: 32px auto;
+  display: block;
+}
