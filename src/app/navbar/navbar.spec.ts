@@ -8,7 +8,7 @@ describe('Navbar', () => {
   let component: Navbar;
   let fixture: ComponentFixture<Navbar>;
 
-  beforeEach(async () => {
+  beforeEach( async () => {
     await TestBed.configureTestingModule({
       imports: [Navbar, RouterTestingModule]
     })
@@ -36,7 +36,7 @@ describe('Navbar', () => {
   } )
 
 
-  it( 'should render 3 routes as links', () => {
+  it( 'should render 5 routes as links', () => {
 
     const compiled = fixture.nativeElement as HTMLElement ;
 

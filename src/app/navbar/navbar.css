@@ -6,7 +6,9 @@
   grid-area: navbar;
   border: 6px solid olive;
   border-radius: 8px;
+  background-color: lightsteelblue ;
   padding: 8px 12px;       /* opcional: para que el borde se vea mejor */
+
 }
 
 
