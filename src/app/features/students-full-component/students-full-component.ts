@@ -7,6 +7,7 @@ import { StudentsTable } from "./students-table/students-table";
 import { RouterModule } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBarService } from '../../../shared/sharedContent/mat-snack-bar-service';
 
 @Component({
   selector: 'students-full-component',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
 
 export class StudentsFullComponent implements OnInit {
 
-  constructor( private studentsAPI : StudentsAPIService, private theRouter : Router ) {}
+  constructor( private studentsAPI : StudentsAPIService, private snackBar : MatSnackBarService ) {}
 
   studentsArray! : studentInterface[]
 
@@ -34,8 +35,6 @@ export class StudentsFullComponent implements OnInit {
 
   handleDeleteStudent( studentToDelete : studentInterface ) : void {
 
-    console.log( "Eliminado alumno", studentToDelete); console.table( studentToDelete );
-
     this.studentsAPI.deleteStudentInDB( studentToDelete ).pipe(
 
       switchMap( () : Observable<studentInterface[]> => this.studentsAPI.getStudentsThroughMockIO() )
@@ -46,37 +45,9 @@ export class StudentsFullComponent implements OnInit {
 
     } )
 
+    this.snackBar.showSuccessDelete_SnackBar( 'Estudiante', 'Cerrar' )
+
   }
-
-  /*
-  handleEditStudent ( editedStudent : studentInterface ) {
-
-    const index = this.studentsArray.findIndex( ( t ) => t.id === editedStudent.id )
-
-    if ( index !== -1 ) {
-      this.studentsArray[index] = editedStudent
-    }
-    
-  }
-  */
-
-  
-  /*
-  selectedStudent! : studentInterface | null
-
-  handleEditStudent ( student : studentInterface ) {
-
-    this.selectedStudent = student
-
-    this.theRouter.navigate(
-      [ '/edit-form' ],
-      {
-        state: { selectedOne: student }
-      }
-    )
-  }
-  */
-
 
 }
  
