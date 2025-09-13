@@ -8,6 +8,7 @@ import { CoursesTable } from '../courses-full-component/courses-table/courses-ta
 import { CdkNoDataRow } from "@angular/cdk/table";
 import { UsersTable } from "./users-table/users-table";
 import { MyMatCommonRouterModule } from '../my-mat-common-router/my-mat-common-router-module';
+import { MatSnackBarService } from '../../../shared/sharedContent/mat-snack-bar-service';
 
 @Component({
   selector: 'users-render-component',
@@ -21,7 +22,10 @@ export class UsersRenderComponent implements OnInit {
   usersArray! : userInterface[]
 
 
-  constructor( private usersAPI : UsersAPIService ){}
+  constructor( 
+    private usersAPI : UsersAPIService,
+    public snackBar : MatSnackBarService 
+  ){}
 
 
   ngOnInit(): void {
@@ -39,9 +43,6 @@ export class UsersRenderComponent implements OnInit {
 
   public handleDeleteUser ( userToDelete : userInterface ) : void {
 
-    console.log( 'Eliminando usuario', userToDelete )
-
-
     this.usersAPI.deleteUserInDB( userToDelete ).pipe(
       
 
@@ -51,7 +52,9 @@ export class UsersRenderComponent implements OnInit {
 
       this.usersArray = updatedUsersArray
 
-    } )  
+    } ) 
+    
+    this.snackBar.showSuccessDelete_SnackBar( 'Usuario', 'Cerrar' )
 
   }
 

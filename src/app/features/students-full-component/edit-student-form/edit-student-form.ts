@@ -8,9 +8,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { Navigation, Router, RouterModule } from '@angular/router';
 import { StudentsAPIService } from '../students-api-service';
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
-
 import * as myCustomValidators from '../../../../shared/validatorFunctions/ValidatorFunctions'
 import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
+import { errorsMessages } from '../../../../shared/sharedContent/errorsMessages';
 
 
 @Component({
@@ -27,6 +27,8 @@ export class EditStudentForm implements OnInit {
   studentChosenToEdit! : studentInterface | null 
 
   updatedStudent! : studentInterface
+
+  readonly errorsMessages = errorsMessages
 
 
   constructor( 

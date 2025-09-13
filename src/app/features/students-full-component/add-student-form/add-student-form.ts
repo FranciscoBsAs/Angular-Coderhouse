@@ -6,6 +6,7 @@ import { averageSup0, firstLetterUpperCaseValidator, onlyLettersValidator } from
 import { StudentsAPIService } from '../students-api-service';
 import { CoursesAPIService } from '../../courses-full-component/courses-api-service';
 import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
+import { errorsMessages } from '../../../../shared/sharedContent/errorsMessages';
 
 @Component({
   selector: 'add-student-form',
@@ -21,6 +22,8 @@ export class AddStudentForm implements OnInit {
   private newStudentData! : studentInterface
 
   public coursesArray : courseInterface[] = []
+
+  public readonly errorMessages = errorsMessages
   
   constructor(
     private myFormBuilder : FormBuilder,
@@ -47,7 +50,6 @@ export class AddStudentForm implements OnInit {
         name: [ '', [ Validators.required, onlyLettersValidator, firstLetterUpperCaseValidator ] ],
         surname: [ '', [ Validators.required, onlyLettersValidator, firstLetterUpperCaseValidator ] ],
         dni: [ '', [  Validators.required, Validators.minLength(7) ] ],
-        
         age: [ '', [ Validators.required ] ],
         average: [ '', [ Validators.required, averageSup0, Validators.max(10) ] ],
         courses: [[]],
@@ -64,7 +66,6 @@ export class AddStudentForm implements OnInit {
                   ? ''
                   : String( dniValue )
         ,
-        { emitEvent:false }
       )
 
     } )
@@ -84,9 +85,8 @@ export class AddStudentForm implements OnInit {
 
       {
         next: ( ) => {
-          console.log( 'estudiante creado con exito', this.newStudentData.name, " ", this.newStudentData.surname )
 
-          this.snackBar.showSuccessAdd_SnackBar('Estudiante', 'Cerrar')
+          this.snackBar.showSuccessAdd_SnackBar( `Estudiante ${this.newStudentData.name} ${this.newStudentData.surname}`, 'Cerrar')
 
           this.handleOnReset()
         },

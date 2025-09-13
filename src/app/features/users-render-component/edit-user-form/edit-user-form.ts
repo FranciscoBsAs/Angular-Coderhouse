@@ -11,6 +11,7 @@ import { UsersAPIService } from '../../../core/users/users-api-service';
 import * as myCustomValidators from '../../../../shared/validatorFunctions/ValidatorFunctions'
 import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
+import { errorsMessages } from '../../../../shared/sharedContent/errorsMessages';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class EditUserForm implements OnInit {
   userChosenToEdit! : userInterface | null
 
   updatedUser! : userInterface
+
+  public readonly errorsMessages = errorsMessages
 
 
   constructor(
@@ -48,7 +51,6 @@ export class EditUserForm implements OnInit {
     this.editUserForm = this.myFormBuilder.group(
 
       {
-        
         id: [ '',],
         userName: [ '', [ Validators.required, myCustomValidators.firstLetterUpperCaseValidator, myCustomValidators.onlyLettersValidator ] ] ,
         email: [ '', [ Validators.required, Validators.email, myCustomValidators.notEmoticonValidator ]  ] ,

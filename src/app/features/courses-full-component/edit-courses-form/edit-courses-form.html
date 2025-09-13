@@ -27,22 +27,21 @@
                 )"
                 class="err-class" >
                 <h5>
-                    Nombre de curso unicamente con letras
+                    {{errorMessages.nameLetters}}
                 </h5>
             </div>
 
             <div 
                 *ngIf="(
-                    editCourseForm.get('name')?.errors?.[ 'hasEmoticon' ]
+                    editCourseForm.get('name')?.errors?.[ 'required' ]
                     &&
                     editCourseForm.get('name')?.touched
                 )"
                 class="err-class" >
                 <h5>
-                    No se permite ingresar emoticones
+                    {{errorMessages.nameRequired}}
                 </h5>
             </div>
-
 
         </div>
 
@@ -64,7 +63,20 @@
                 )"
                 class="err-class" >
                 <h5>
-                    No se permite ingresar emoticones
+                    {{errorMessages.notEmojis}}
+                </h5>
+            </div>
+
+
+            <div 
+                *ngIf="(
+                    editCourseForm.get('code')?.errors?.[ 'required' ]
+                    &&
+                    editCourseForm.get('code')?.touched
+                )"
+                class="err-class" >
+                <h5>
+                    {{errorMessages.codeRequired}}
                 </h5>
             </div>
 
@@ -80,6 +92,7 @@
                 formControlName="credits"
                 placeholder="ingrese el credito editado"
             >
+
             <div
                 *ngIf="(
                     editCourseForm.get('credits')?.errors?.['pattern']
@@ -88,8 +101,22 @@
                 )"
                 class="err-class"
             >
-                <p> Créditos unicamente con valores numericos Reales, decimales con coma, entre (–12,34) </p>
+                <p> {{errorMessages.creditsCourse}} </p>
             </div>
+
+
+            <div
+                *ngIf="(
+                    editCourseForm.get('credits')?.errors?.['required']
+                    &&
+                    editCourseForm.get('credits')?.touched
+                )"
+                class="err-class"
+            >
+                <p> {{errorMessages.creditsRequired}} </p>
+            </div>
+
+
         </div>
 
 

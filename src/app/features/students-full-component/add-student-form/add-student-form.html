@@ -20,7 +20,7 @@
                 )"
                 class="err-class" > 
             
-                >Nombre solo con letras
+                {{errorMessages.nameLetters}}
             </div>
 
             <div
@@ -31,7 +31,7 @@
                 )"
                 class="err-class"
             > 
-                >Nombre es requerido   
+                {{errorMessages.nameRequired}}   
             </div>
 
             <div
@@ -42,7 +42,7 @@
                 )"
                 class="err-class"
             > 
-                >Nombre debe empezar con mayuscula   
+                {{errorMessages.nameFirstUppC}}   
             </div>
 
         </div>
@@ -65,7 +65,7 @@
                 )"
                 class="err-class"
             >
-                >Apellido solo con letras
+                {{errorMessages.surnameLetters}}
             </div>
 
             <div
@@ -76,7 +76,7 @@
                 )"
                 class="err-class" 
             >
-                > Apellido es requerido 
+                {{errorMessages.surnameRequired}}
             </div>
 
             <div
@@ -87,7 +87,7 @@
                 )"
                 class="err-class" 
             >
-                > Apellido debe empezar con mayuscula 
+                {{errorMessages.surnameFirstUppC}}
             </div>
 
         </div>
@@ -103,7 +103,7 @@
                 placeholder="Ingrese el DNI" 
             >
             <div  *ngIf=" addStudentForm.get( 'dni' )?.invalid && addStudentForm.get('dni')?.touched " class="err-class" >
-                DNI es requerido
+                {{ errorMessages.dniRequired }}
             </div>
 
         </div>
@@ -124,7 +124,7 @@
             addStudentForm.get('age')?.touched "
             class="err-class"
         >
-            Edad es requerido
+            {{errorMessages.ageRequired}}
         </div>
 
     </div>
@@ -147,7 +147,7 @@
             ) "
             class="err-class"
         >
-            >Promedio debe ser mayor de 0 hasta 10
+            {{errorMessages.averageSupCero}}
         </div>
 
         <div
@@ -158,7 +158,7 @@
             )"
             class="err-class"
         >
-            >Promedio es requerido
+            {{errorMessages.averageRequired}}
         </div>
 
 
@@ -173,8 +173,9 @@
                 <option
                     *ngFor="let eachCourse of coursesArray"
                     [value]="eachCourse.name"
+                    multiple
                 >
-                <span>{{ eachCourse.name }}</span> 
+                    {{ eachCourse.name }} 
                 </option>
 
             </select>
@@ -183,16 +184,6 @@
 
     </div>
 
-    <!--
-    <button 
-        type="submit"
-        class="submit-btn"
-        [disabled]="addStudentForm.invalid"
-        (click)="onSubmit()"
-        >
-        Añadir Estudiante
-    </button>
-    -->
     <button 
         type="submit"
         class="submit-btn"

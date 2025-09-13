@@ -11,6 +11,7 @@ import { RoutingPaths } from '../../../../shared/urlRoutesEnum';
 
 import * as myCustomValidators from '../../../../shared/validatorFunctions/ValidatorFunctions'
 import { MatSnackBarService } from '../../../../shared/sharedContent/mat-snack-bar-service';
+import { errorsMessages } from '../../../../shared/sharedContent/errorsMessages';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class EditCoursesForm implements OnInit {
   
   updatedCourse! : courseInterface 
   
+  errorMessages = errorsMessages
+
 
   constructor( 
     private myFormBuilder : FormBuilder,
@@ -47,9 +50,9 @@ export class EditCoursesForm implements OnInit {
 
     this.editCourseForm = this.myFormBuilder.group(
       {
-        name: ['', [myCustomValidators.onlyLettersValidator, myCustomValidators.notEmoticonValidator] ],
-        code: ['' , [ myCustomValidators.notEmoticonValidator ] ],
-        credits: ['', [ Validators.pattern(/^-?\d+(?:,\d+)?$/) ]],
+        name: ['', [ Validators.required, myCustomValidators.onlyLettersValidator, myCustomValidators.notEmoticonValidator] ],
+        code: ['' , [ Validators.required, myCustomValidators.notEmoticonValidator ] ],
+        credits: ['', [ Validators.required, Validators.pattern(/^-?\d+(?:,\d+)?$/) ]],
         id: ['']
       }
     )
