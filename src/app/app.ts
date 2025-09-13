@@ -7,30 +7,23 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './core/auth/auth-service';
 import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from './core/authNgRx/auth.selector';
+import { FooterComponent } from './features/footer-component/footer-component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [Toolbar, Navbar, CommonModule, RouterModule,],
+  imports: [Toolbar, Navbar, CommonModule, RouterModule, FooterComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App implements OnInit {
 
   protected title = 'angular-coderhouse-project';
 
-  //currentSection : string = 'students-table-section'
-
   isUserLoggedProp : boolean = false
 
-  constructor( 
-    private myHttp : HttpClient,
-
-    public cdRef : ChangeDetectorRef,
-
-    private theAuthStore : Store
-   
-  ) {}
+  constructor( private theAuthStore : Store ) {}
 
 
   ngOnInit(): void {
@@ -39,16 +32,8 @@ export class App implements OnInit {
 
       this.isUserLoggedProp = Boolean(loggedInSuccess)
 
-      //this.cdRef.detectChanges()
-
     } )
 
-
-  }
-
-  public getNavBarTitle () : string {
-
-    return  'Titulo tal FALTA LOGICA'
   }
   
 
