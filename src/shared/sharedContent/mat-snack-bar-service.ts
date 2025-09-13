@@ -50,4 +50,13 @@ export class MatSnackBarService {
 
   }
 
+
+  showSuccessDelete_SnackBar ( element : string, action : string ) {
+
+    const messageDeleteSuccess = `${element} ya eliminado con exito`
+
+    this.sharedEditorSnackBar.open( messageDeleteSuccess, action, this.configurationOfSnackBar )
+
+  }
+
 }
