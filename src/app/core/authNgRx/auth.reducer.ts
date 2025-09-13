@@ -13,7 +13,7 @@ export const authReducer = createReducer(
         {
             ...state,
             email: email,
-            password: password,
+            //password: password,
             
             isLoading: true,
 
@@ -44,7 +44,7 @@ export const authReducer = createReducer(
     ,
 
     on( AuthActions.LoginFailure, ( state, { theError } ) => (
-
+        
         {
             ...state,
 
@@ -61,23 +61,6 @@ export const authReducer = createReducer(
 
 ,
 
-    on( AuthActions.LogOut, ( state ) => (
-
-        {
-            ...state,
-            email: null,
-            password: null,
-            isLoggedIn: false,
-            
-            currentUser: null,
-
-            isLoading: false,
-
-            theError: null
-
-            //isAdmin: false
-        }
-
-    ) )
+    on( AuthActions.LogOut, () => initialAuthState )
 
 )

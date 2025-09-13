@@ -92,7 +92,9 @@ export class AuthEffects {
 
                 tap( () => {
 
+                    //localStorage.removeItem('auth')
                     this.theRouter.navigate( [ RoutingPaths.HOME ] )
+
 
                 } )
 

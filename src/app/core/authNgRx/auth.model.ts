@@ -4,7 +4,7 @@ export interface authStateInterface {
 
     email : string | null ,
 
-    password : string | null,
+    //password : string | null,
 
     isLoggedIn : boolean,
 
@@ -22,7 +22,7 @@ export interface authStateInterface {
 export const initialAuthState : authStateInterface = {
 
     email: null ,
-    password: null,
+    //password: null,
     currentUser: null,
     isLoggedIn: false,
     isAdmin: false,
