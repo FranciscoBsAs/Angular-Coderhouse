@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/ro
 import { Store } from '@ngrx/store';
 import { selectUser } from '../core/authNgRx/auth.selector';
 import { routeMapingType } from '../../shared/sharedContent/entities';
-import { RoutingPaths } from '../../shared/urlRoutesEnum';
+import { routeTitleMap, RoutingPaths } from '../../shared/urlRoutesEnum';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,8 +16,7 @@ import { RoutingPaths } from '../../shared/urlRoutesEnum';
 })
 export class Toolbar implements OnInit {
 
-
-  readonly titleApp : string = "College App"
+  readonly titleApp : string = "College Web Site"
 
   titleRouting! : string
 
@@ -51,38 +50,11 @@ export class Toolbar implements OnInit {
   }
 
 
-  private readonly routeTitleMap : routeMapingType = {
-
-    [ RoutingPaths.STUDENTS ]: "students-full-component",
-    
-    [ RoutingPaths.VIEW_SINGULAR_STUDENT ]: "view-singular-student",
-
-    [ RoutingPaths.EDIT_SINGULAR_STUDENT ]: "edit-student-form",
-
-    [ RoutingPaths.REGISTRATIONS ]: "registrations-full-component",
-
-    [ RoutingPaths.COURSES ]: "courses-full-component",
-
-    [ RoutingPaths.VIEW_SINGULAR_COURSE ]: "view-singular-course",
-
-    [ RoutingPaths.EDIT_SINGULAR_COURSE ]: "edit-course-form",
-
-    [ RoutingPaths.USERS ]: 'users-full-component' ,
-
-    [ RoutingPaths.VIEW_SINGULAR_USER ]: "view-singular-user" ,
-
-    [ RoutingPaths.EDIT_SINGULAR_USER ]: "edit-user-form",
-    
-    [ RoutingPaths.NOT_FOUND_ROUTE ]: "not-found-component"
-
-  }
-
-
   private setTitleRouting () {
 
     const currentURL : string = this.theRouter.url ;
 
-    const foundComparedRoute = Object.keys( this.routeTitleMap ).find( ( routingPathKey ) => (
+    const foundComparedRoute = Object.keys( routeTitleMap ).find( ( routingPathKey ) => (
 
       currentURL.includes( routingPathKey )
 
@@ -90,7 +62,7 @@ export class Toolbar implements OnInit {
 
 
     this.titleRouting = foundComparedRoute
-                      ? this.routeTitleMap[ foundComparedRoute ]
+                      ? routeTitleMap[ foundComparedRoute ]
                       : ''
 
   }

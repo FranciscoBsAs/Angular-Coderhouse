@@ -13,7 +13,7 @@ export class BigTitle {
     this.theRenderer.setStyle(
       this.theElement.nativeElement,
       'font-size',
-      '30px',
+      '40px',
     )
     this.theRenderer.setStyle(
       this.theElement.nativeElement,
