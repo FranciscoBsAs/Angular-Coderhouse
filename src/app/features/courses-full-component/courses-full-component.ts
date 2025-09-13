@@ -6,6 +6,7 @@ import { CoursesAPIService } from './courses-api-service';
 import { courseInterface } from '../../../shared/sharedContent/entities';
 import { CoursesTable } from './courses-table/courses-table';
 import { switchMap } from 'rxjs';
+import { MatSnackBarService } from '../../../shared/sharedContent/mat-snack-bar-service';
 
 @Component({
   selector: 'app-courses-full-component',
@@ -20,10 +21,8 @@ export class CoursesFullComponent implements OnInit {
 
 
   constructor(
-
     private courseAPI : CoursesAPIService,
-    private theRouter : Router
-
+    private snackBar : MatSnackBarService
   ){}
 
   
@@ -42,8 +41,6 @@ export class CoursesFullComponent implements OnInit {
 
   handleDeleteCourse ( courseToDelete : courseInterface ) : void {
 
-    console.log( "Eliminando curso", courseToDelete )
-
     this.courseAPI.deleteCourseInDB( courseToDelete ).pipe(
 
       switchMap( () => this.courseAPI.getCoursesThroughMockIO() )
@@ -53,6 +50,8 @@ export class CoursesFullComponent implements OnInit {
       this.coursesArray = updatedCoursesArray
 
     } )
+
+    this.snackBar.showSuccessDelete_SnackBar('Curso', 'Cerrar')
 
   }
 
