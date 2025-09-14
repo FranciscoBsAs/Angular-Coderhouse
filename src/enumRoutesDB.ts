@@ -1,4 +1,4 @@
-import { enviroment } from "./environments/environment.prod";
+import { enviroment } from "./environments/environment";
 
 export const RoutingDB = {
 
