@@ -10,7 +10,9 @@ export class FooterComponent {
 
   readonly myPersonalEmail : string = 'franciscotchiressi@gmail.com'
 
-  readonly myPersonalLinkedIn = 'www.linkedin.com/in/francisco-thomas-chiressi-8b55b01a0'
+  readonly myPersonalLinkedIn = 'https://www.linkedin.com/in/francisco-thomas-chiressi-8b55b01a0'
+
+  srcLinkedinIcon = './../../../shared/sharedContent/icons_Images/linkedin.png'
 
 
 }
