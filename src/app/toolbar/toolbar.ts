@@ -31,8 +31,7 @@ export class Toolbar implements OnInit {
 
       userSelected == undefined
                     ? this.userNameTitle = null
-                    : ( this.userNameTitle = userSelected?.userName )
-                    
+                    : ( this.userNameTitle = userSelected?.userName )         
     } )
                   
 
@@ -42,7 +41,6 @@ export class Toolbar implements OnInit {
         
         this.setTitleRouting()
       
-        console.log( 'ruta actual', this.titleRouting )
       }
        
     } )
@@ -54,7 +52,7 @@ export class Toolbar implements OnInit {
 
     const currentURL : string = this.theRouter.url ;
 
-    const foundComparedRoute = Object.keys( routeTitleMap ).find( ( routingPathKey ) => (
+    const foundComparedRoute = Object.keys( routeTitleMap ).find( ( routingPathKey ) : boolean => (
 
       currentURL.includes( routingPathKey )
 
@@ -66,7 +64,7 @@ export class Toolbar implements OnInit {
                       : ''
 
   }
-
+  
 
 }
 
