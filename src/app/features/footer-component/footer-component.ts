@@ -12,7 +12,7 @@ export class FooterComponent {
 
   readonly myPersonalLinkedIn = 'https://www.linkedin.com/in/francisco-thomas-chiressi-8b55b01a0'
 
-  srcLinkedinIcon = './../../../shared/sharedContent/icons_Images/linkedin.png'
+  readonly srcLinkedinIcon = 'assets/linkedin.png'
 
 
 }
