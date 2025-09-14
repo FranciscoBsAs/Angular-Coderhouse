@@ -1,6 +1,6 @@
 
 .navbarLocal {
-  position:absolute;
+  position:absolute ;
   top: 0;
     left: 0;
   grid-area: navbar;
@@ -8,6 +8,7 @@
   border-radius: 8px;
   background-color: lightsteelblue ;
   padding: 8px 12px;       /* opcional: para que el borde se vea mejor */
+
 
 }
 
