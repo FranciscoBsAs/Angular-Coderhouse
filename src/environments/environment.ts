@@ -6,6 +6,5 @@ export const enviroment = {
 
     ENDPOINT_SECOND_API_DB: 'https://68a5f2ce2a3deed2960f6fd1.mockapi.io',
 
-
-
 }
+
