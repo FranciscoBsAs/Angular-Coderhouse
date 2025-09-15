@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Toolbar } from './toolbar/toolbar';
 import { Navbar } from './navbar/navbar';
 import { CommonModule } from '@angular/common';
@@ -17,16 +17,18 @@ import { FooterComponent } from './features/footer-component/footer-component';
   styleUrl: './app.css'
 })
 
-export class App implements OnInit {
+export class App implements OnInit , AfterViewInit {
 
   protected title = 'angular-coderhouse-project';
 
   isUserLoggedProp : boolean = false
 
-  constructor( private theAuthStore : Store ) {}
+  alreadyToFooter : boolean = false
+
+  constructor( private theAuthStore : Store) {}
 
 
-  ngOnInit(): void {
+  ngOnInit() : void {
 
     this.theAuthStore.select( selectIsLoggedIn ).subscribe( ( loggedInSuccess ) => {
 
@@ -36,5 +38,9 @@ export class App implements OnInit {
 
   }
   
+  ngAfterViewInit() : void {  
+    this.alreadyToFooter = true
+  }
+
 
 }
