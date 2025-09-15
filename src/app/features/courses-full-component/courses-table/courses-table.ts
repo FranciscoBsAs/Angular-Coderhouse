@@ -83,7 +83,7 @@ export class CoursesTable implements OnInit {
 
     const studentsCoursing : studentInterface[] = this.studentsArrayToDetails.filter( ( student ) : boolean => (
 
-      student.courses.includes( certainCourse.name )
+      Array.isArray(student.courses) && student.courses.includes( certainCourse.name )
 
     ) )
 
