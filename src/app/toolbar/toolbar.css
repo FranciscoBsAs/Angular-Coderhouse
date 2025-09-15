@@ -7,6 +7,12 @@
   
 }
 
+.toolbar-title-app{
+
+  color: #03549b ;
+  font-family: Arial, Helvetica, sans-serif ;
+  
+}
 
 .toolbar-row{
 
@@ -23,7 +29,7 @@
   position: absolute;
   right:0;
   transform: translateX(-25%);
-  font-style: arial;
+  font-style: Arial, Helvetica, sans-serif; ;
 
 }
 
