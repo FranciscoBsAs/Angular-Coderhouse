@@ -16,7 +16,7 @@ import { routeTitleMap, RoutingPaths } from '../../shared/urlRoutesEnum';
 })
 export class Toolbar implements OnInit {
 
-  readonly titleApp : string = "College Web Site"
+  readonly titleApp : string = "My College Web Site"
 
   titleRouting! : string
 
