@@ -1,8 +1,8 @@
 <div class="container">
 
-  <app-toolbar class="toolbar"></app-toolbar>
+  <app-toolbar class="toolbar"/>
 
-  <app-navbar *ngIf="isUserLoggedProp" class="navbar"> </app-navbar>
+  <app-navbar *ngIf="isUserLoggedProp" class="navbar"/>
 
   <div class="content">
     
@@ -12,7 +12,8 @@
   </div>
   
   
-  
 </div>
 
-<footer-component *ngIf="alreadyToFooter" ></footer-component>
+  <div class="main-width-container" >
+    <footer-component />
+  </div>

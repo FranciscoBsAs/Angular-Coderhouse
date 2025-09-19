@@ -9,9 +9,18 @@
     border-top: 2px solid orange;
 
     position:static ;
+    /*
     left: 0;
     bottom: 0;
-    width: 100vw ;
+    */
+
+      left: unset;
+  bottom: unset;
+    width: 100% ;
+
+  border: 5px solid #0065bd;
+  border-radius: 8px;
+    padding: 8px 12px;       /* 
     /*z-index: 100;*/
 
 }

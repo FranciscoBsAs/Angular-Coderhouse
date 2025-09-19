@@ -17,13 +17,13 @@ import { FooterComponent } from './features/footer-component/footer-component';
   styleUrl: './app.css'
 })
 
-export class App implements OnInit , AfterViewInit {
+export class App implements OnInit  {
 
   protected title = 'angular-coderhouse-project';
 
   isUserLoggedProp : boolean = false
 
-  alreadyToFooter : boolean = false
+  //alreadyToFooter : boolean = false
 
   constructor( private theAuthStore : Store) {}
 
@@ -37,10 +37,10 @@ export class App implements OnInit , AfterViewInit {
     } )
 
   }
-  
+  /*
   ngAfterViewInit() : void {  
     this.alreadyToFooter = true
   }
-
+  */
 
 }

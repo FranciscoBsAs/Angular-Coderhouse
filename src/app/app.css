@@ -30,3 +30,17 @@
   color: darkRed ;
 }
 
+
+.main-width-container {
+
+  width: 900px;
+  max-width: 95vw;
+  margin: 24px auto 0 auto;
+  
+  /*
+   margin: 24px auto 0 auto; /* centrado horizontal y separación arriba 
+  */
+  /*margin: 24px auto 0 auto; /* centrado horizontal y separación arriba */
+
+
+}
