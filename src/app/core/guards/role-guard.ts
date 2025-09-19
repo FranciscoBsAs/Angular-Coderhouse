@@ -21,7 +21,7 @@ export const roleGuard : CanActivateFn = (route, state) : boolean | Observable<b
 
     take(1)
 
-  ).subscribe( user => console.log( 'Usuario, ', user, user?.role ) )
+  ).subscribe()
 
 
 
@@ -33,18 +33,10 @@ export const roleGuard : CanActivateFn = (route, state) : boolean | Observable<b
 
       map( ( isAdmin ) => {
 
-        console.log( "Valor original de isAdmin: ", isAdmin )
+        if( isAdmin ) return true
+        
+        else{
 
-
-        if( isAdmin ){
-
-          console.log( 'Is Admin: ', isAdmin )
-          
-          return true
-
-        }else{
-
-          console.log( 'Is Admin: ', isAdmin )
           theRouter.navigate( [RoutingPaths.NOT_FOUND_ROUTE] )
           return false
 
