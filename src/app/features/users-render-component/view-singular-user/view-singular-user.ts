@@ -17,6 +17,8 @@ export class ViewSingularUser {
 
   aSingularUser! : userInterface | undefined
 
+  columnTitlesSingular : string[] = [ 'Name', 'Email', 'Role']
+
   constructor( private theRouter : Router ){
 
     const theCurrentNavigation = this.theRouter.getCurrentNavigation()
@@ -26,6 +28,6 @@ export class ViewSingularUser {
 
   }
 
-  columnTitlesSingular : string[] = [ 'Name', 'Email', 'Role']
+
 
 }
