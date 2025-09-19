@@ -22,6 +22,8 @@ export class ViewSingularStudent  {
 
   aSingularStudent! : studentInterface | undefined ;
 
+  columnTitlesSingular : string[] = [ 'FullName', 'DNI', 'Age', 'Average', 'Registered Courses' ]
+
   constructor( 
     private theRouter : Router ,
     private studentsService : StudentsAPIService,
@@ -66,6 +68,6 @@ export class ViewSingularStudent  {
 
   }
 
-  columnTitlesSingular : string[] = [ 'FullName', 'DNI', 'Age', 'Average', 'Registered Courses' ]
+
 
 }
