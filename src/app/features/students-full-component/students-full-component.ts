@@ -25,8 +25,6 @@ export class StudentsFullComponent implements OnInit {
   ngOnInit() : void {
     this.studentsAPI.getStudentsThroughMockIO().subscribe( ( studentsFromDB ) => {
 
-      console.table( studentsFromDB )
-
       this.studentsArray = studentsFromDB
 
     } )

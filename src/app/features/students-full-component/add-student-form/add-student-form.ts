@@ -90,10 +90,7 @@ export class AddStudentForm implements OnInit {
 
           this.handleOnReset()
         },
-        error: ( err ) => {
-          console.error( 'Error al añadir estudiante', err )
-          this.snackBar.showNotFound_SnackBar('Estudiante', 'Cerrar')
-        }
+        error: () => this.snackBar.showNotFound_SnackBar('Estudiante', 'Cerrar')
       }
 
     )

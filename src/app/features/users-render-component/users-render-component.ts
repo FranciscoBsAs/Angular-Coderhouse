@@ -32,8 +32,6 @@ export class UsersRenderComponent implements OnInit {
       
     this.usersAPI.getUsersThroughMockIO().subscribe( ( usersFromDB ) => {
 
-      console.table( usersFromDB )
-
       this.usersArray = usersFromDB
 
     } )

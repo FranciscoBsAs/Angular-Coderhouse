@@ -87,13 +87,8 @@ export class EditUserForm implements OnInit {
           }, 3500 )
 
         },
-        error: ( err ) => { 
+        error: () => this.snackBar.showNotFound_SnackBar( 'Usuario', 'Cerrar' )
 
-          console.error( 'Error al editar el usuario', err )
-          
-          this.snackBar.showNotFound_SnackBar( 'Usuario', 'Cerrar' )
-
-        }
       }
     )
 

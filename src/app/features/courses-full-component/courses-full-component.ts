@@ -30,8 +30,6 @@ export class CoursesFullComponent implements OnInit {
       
     this.courseAPI.getCoursesThroughMockIO().subscribe( ( coursesFromDB ) => {      // coursesFromDB infiere desde el generic <courseInterface[]> su type de parametro callback a esperar
 
-      console.table( coursesFromDB ) ;
-
       this.coursesArray = coursesFromDB
 
     } )

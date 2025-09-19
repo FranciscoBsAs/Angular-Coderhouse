@@ -77,20 +77,4 @@ export class StudentsTable implements OnInit {
     )
   }
 
-
-  /*
-  addStudentFromChild ( newStudent : studentInterface ) : void {
-    this.theRouter.navigate(
-      [ `/${RoutingPaths.ADD_NEW_STUDENT}` ],
-      {
-        state: {
-          newStudentToAdd: newStudent
-        }
-      }
-    )
-
-  }
- */ 
-
-
 }
