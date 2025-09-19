@@ -7,6 +7,7 @@ import { userInterface } from "../../../shared/sharedContent/entities";
 import { UsersAPIService } from "../users/users-api-service";
 import { Router } from "@angular/router";
 import { RoutingPaths } from "../../../shared/urlRoutesEnum";
+import { MatSnackBarService } from "../../../shared/sharedContent/mat-snack-bar-service";
 
 @Injectable ()
 
@@ -17,6 +18,8 @@ export class AuthEffects {
     private usersAPI : UsersAPIService = inject( UsersAPIService ) 
 
     private theRouter : Router = inject( Router )
+
+    private snackBar = inject( MatSnackBarService )
 
     
     logginEffect$ = createEffect ( () => (
@@ -35,13 +38,12 @@ export class AuthEffects {
 
                         const user = usersData.find( ( u ) => u.email === email as string  &&  u.password === password as string )
 
-                        console.log('Usuario encontrado:', user); // <-- Verifica el objeto
-
+                        this.snackBar.showSuccessLogin( `Usuario encontrado: ${user?.userName}` )
 
                         return (
                             user 
-                                ? AuthActions.LoginSuccess( { user: user } ) 
-                                : AuthActions.LoginFailure( { theError: "Usuarios o contraseña incorrectos" } )
+                                ? AuthActions.LoginSuccess( { user: user } )
+                                : AuthActions.LoginFailure( { theError: "Usuarios o contraseña no encontrados " } )
                         )
 
                     } )
@@ -58,6 +60,26 @@ export class AuthEffects {
         )
 
     ) )
+
+
+    showLoginFailureEffect$ = createEffect( () => (
+
+        this.actions$.pipe(
+
+            ofType( AuthActions.LoginFailure ),
+
+            tap( ( { theError: theError } ) => {
+
+                this.snackBar.showFailedLogin( theError as string )
+
+            } )
+
+        )
+
+    ),
+        {dispatch: false}
+    )
+
 
     // Navegar cuando el login sale bien (sin dispatch)
     loginNavigate$ = createEffect( () => (

@@ -4,6 +4,7 @@
     (ngSubmit)="onSubmit()"
     class="form-oval"
 >
+
     <div class="form-row">
 
         <label for="email" > Email: </label>
@@ -21,10 +22,23 @@
                 &&
                 loginForm.get('email')?.touched
             )"
-            class="err-class" >
-            <h5>
-                El email es requerido
-            </h5>
+            class="err-class" 
+        >
+            {{errorFormMessages.emailRequired}}
+           
+        </div>
+
+
+
+        <div 
+            *ngIf="(
+                loginForm.get('email')?.errors?.['email']
+                &&
+                loginForm.get( 'email' )?.touched
+            )"
+            class="err-class"
+        >
+            {{errorFormMessages.emailFormat}}
         </div>
 
 
@@ -34,7 +48,20 @@
             type="password"
             formControlName="password"
             id="password"
+            required
         >
+
+        <div
+            *ngIf="(
+                loginForm.get('password')?.errors?.['required']
+                &&
+                loginForm.get('password')?.touched
+            )"
+            class="err-class"
+        >
+            {{errorFormMessages.passwordRequired}}
+
+        </div>
 
 
         <button class="rounded-btn" type="submit">Login</button>

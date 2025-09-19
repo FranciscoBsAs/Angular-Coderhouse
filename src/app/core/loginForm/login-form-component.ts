@@ -1,51 +1,45 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { userInterface } from '../../../shared/sharedContent/entities';
-import { AuthService } from '../auth/auth-service';
-import { Router } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { authStateInterface } from '../authNgRx/auth.model';
 import { Store } from '@ngrx/store';
-import { LoadUsers } from '../users/usersNgRx/users.actions';
 import { Login } from '../authNgRx/auth.actions';
-import { selectEror, selectIsLoading } from '../authNgRx/auth.selector';
+import { errorsMessages } from '../../../shared/sharedContent/errorsMessages';
+import { MatSnackBarService } from '../../../shared/sharedContent/mat-snack-bar-service';
+import { MyMatCommonRouterModule } from '../../features/my-mat-common-router/my-mat-common-router-module';
 
 @Component({
   selector: 'app-login-form-component',
-  imports: [ ReactiveFormsModule, CommonModule ],
+  imports: [ ReactiveFormsModule, CommonModule, MyMatCommonRouterModule,  ],
   templateUrl: './login-form-component.html',
   styleUrl: './login-form-component.css'
 })
+
 export class LoginFormComponent implements OnInit {
 
   loginForm! : FormGroup
 
   private theAuthStore : Store< { auth : authStateInterface } > = inject( Store )
-  
-  isLoading$ : Observable<boolean> = this.theAuthStore.select( selectIsLoading )
-  
-  error$ : Observable<string | null> = this.theAuthStore.select( selectEror )
 
-  
-  loggedUser$ : Observable< string | null > | null  = null  // si te sirve para debug
+  readonly errorFormMessages = errorsMessages
+
+  loggedUser$ : Observable< string | null > | null  = null  // sirve para debug
 
 
   constructor( 
     private myFormBuilder : FormBuilder,
-    private theRouter : Router,
 
-    public authServices : AuthService,
+    private snackBar : MatSnackBarService
   ) {}
 
 
   ngOnInit(): void {
-
-    this.authServices.loadUsersFromAPI()
     
     this.loginForm = this.myFormBuilder.group(
       {
-        email: [ '', [ Validators.required, Validators.minLength(3)] ],
+        email: [ '', [ Validators.required, Validators.email ] ],
         password: [ '', [ Validators.required, Validators.minLength(3) ] ]
       }
     )
@@ -69,27 +63,19 @@ export class LoginFormComponent implements OnInit {
       ) )
       
     }
-    else{ console.error( 'Login form is invalidad' ) }
+    else{ 
+      this.snackBar.showFailedLogin()
+    }
 
   }
 
 
   
-  getUser () : void {
+  protected getUser () : void {
 
     this.loggedUser$ = this.theAuthStore.select( state => state.auth.email )
 
   }
 
-
-
-
-  getTitle () : string {
-    
-    // si estamos en tan pagina ,el titulo... switch,
-
-    return "Título Incorrecto"
-
-  }
 
 }
