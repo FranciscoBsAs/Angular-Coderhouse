@@ -17,6 +17,7 @@ export const errorsMessages = {
 
     emailRequired: '>Email es requerido',
     emailFormat: '>Email requiere formato E-mail',
+    passwordRequired: '>Password es requerido',
 
     roleRequired: '>El rol es requerido',
 
