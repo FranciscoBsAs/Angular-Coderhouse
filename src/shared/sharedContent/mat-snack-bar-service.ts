@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig, TextOnlySnackBar } from '@angular/material/snack-bar';
+import { userInterface } from './entities';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ export class MatSnackBarService {
 
   public configurationOfSnackBar : MatSnackBarConfig<TextOnlySnackBar> = {
 
-    duration: 4000
+    duration: 3000,
 
   }
 
@@ -58,5 +59,22 @@ export class MatSnackBarService {
     this.sharedEditorSnackBar.open( messageDeleteSuccess, action, this.configurationOfSnackBar )
 
   }
+
+
+  showFailedLogin ( errorMessage? : string ) {
+
+    const messageFailedLogin = "Email o Password con formato incorrecto"
+
+    this.sharedEditorSnackBar.open( errorMessage || messageFailedLogin, "Cerrar", this.configurationOfSnackBar )
+
+  }
+
+
+  showSuccessLogin ( successMessage : string ) {
+
+    this.sharedEditorSnackBar.open( successMessage, "Cerrar", this.configurationOfSnackBar )
+
+  }
+
 
 }
